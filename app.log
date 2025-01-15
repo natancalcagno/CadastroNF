@@ -27340,3 +27340,18 @@ AttributeError: 'MainView' object has no attribute 'main_layout'
 2025-01-15 08:07:36 - utils.logger - INFO - Mudando rota para: /login
 2025-01-15 08:07:36 - utils.logger - INFO - Status de autenticação: False
 2025-01-15 08:07:36 - utils.logger - INFO - Adicionando LoginView
+2025-01-15 08:09:18 - flet_web.fastapi - INFO - Session disconnected: _99klQzSnQeGP94zv_36e75f5a0e2afa3e11e82e410723e199013eb36b
+2025-01-15 08:09:18 - flet_web.fastapi - INFO - Shutting down Flet App Manager
+2025-01-15 08:09:18 - flet - INFO - Flet app has started...
+2025-01-15 08:09:18 - flet_web.fastapi - INFO - Closing Flet web server...
+2025-01-15 08:09:18 - flet - INFO - Assets path configured: C:\Users\Suporte\Documents\CadastroNF\assets
+2025-01-15 08:09:18 - flet - INFO - Starting Flet web server on port 62232...
+2025-01-15 08:09:18 - flet_web.fastapi - INFO - Web renderer configured: WebRenderer.CANVAS_KIT
+2025-01-15 08:09:18 - flet_web.fastapi - INFO - Use color emoji: False
+2025-01-15 08:09:18 - flet_web.fastapi - INFO - Route URL strategy configured: path
+2025-01-15 08:09:19 - flet_web.fastapi - INFO - New FletApp: JzVOmmJk
+2025-01-15 08:09:19 - flet_web.fastapi - INFO - Existing session requested: 99klQzSnQeGP94zv
+2025-01-15 08:09:19 - flet_web.fastapi - INFO - Session reconnected: _99klQzSnQeGP94zv_36e75f5a0e2afa3e11e82e410723e199013eb36b
+2025-01-15 08:09:19 - flet_web.fastapi - INFO - Disposing FletApp: lJlj652W
+2025-01-15 08:09:19 - flet_web.fastapi - WARNING - Receive loop error: Event loop is closed
+2025-01-15 08:09:19 - flet_web.fastapi - INFO - Session disconnected: _99klQzSnQeGP94zv_36e75f5a0e2afa3e11e82e410723e199013eb36b
