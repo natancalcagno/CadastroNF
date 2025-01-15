@@ -112,3 +112,5 @@ if __name__ == '__main__':
     except Exception as e:
         logger.error(f"Erro fatal ao iniciar o aplicativo: {str(e)}")
         raise
+
+ft.app(target=main, view=ft.WEB_BROWSER)

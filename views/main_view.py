@@ -41,6 +41,13 @@ class MainView(ft.View):
                         icon=ft.icons.ATTACH_MONEY,
                         on_click=lambda e: self.menu_change(2),
                     ),
+                    ft.ElevatedButton(
+                        text="Sair",
+                        icon=ft.icons.LOGOUT,
+                        on_click=self.logout,
+                        bgcolor=ft.colors.RED_400,
+                        color=ft.colors.WHITE,
+                    ),
                 ],
                 alignment=ft.MainAxisAlignment.END,
                 spacing=10,
@@ -663,3 +670,17 @@ class MainView(ft.View):
             self.rail.destinations[2].disabled = True
         else:
             self.rail.destinations[2].disabled = False
+
+    def logout(self, e):
+        """Realiza o logout do usuário"""
+        try:
+            # Limpa os dados da sessão
+            self.page.session.clear()
+            self.current_user = None
+            
+            # Redireciona para a tela de login
+            self.page.go("/login")
+            
+        except Exception as e:
+            logger.error(f"Erro ao fazer logout: {str(e)}")
+            self.show_error("Erro ao fazer logout")
