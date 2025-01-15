@@ -1,4 +1,4 @@
-name: Web Build + Deployment to GitHub Pages 
+name: Deploy Flet App 
 
 on:
   # Runs on push to any of the below branches
