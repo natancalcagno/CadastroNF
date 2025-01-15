@@ -107,10 +107,9 @@ if __name__ == '__main__':
         init_db()
         
         logger.info("Iniciando aplicativo Flet")
-        ft.app(target=main)
+        ft.app(target=main, view=ft.WEB_BROWSER)
         
     except Exception as e:
         logger.error(f"Erro fatal ao iniciar o aplicativo: {str(e)}")
         raise
 
-ft.app(target=main, view=ft.WEB_BROWSER)
