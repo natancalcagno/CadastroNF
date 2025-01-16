@@ -6292,3 +6292,339 @@ AttributeError: 'NoneType' object has no attribute 'show_snack_bar'
 2025-01-16 12:06:15 - views.main_view - INFO - Carregando view Empenhos
 2025-01-16 12:06:17 - views.main_view - INFO - Mudando para o menu índice: 0
 2025-01-16 12:06:17 - views.main_view - INFO - Carregando view Home
+2025-01-16 12:36:43 - utils.logger - INFO - Inicializando banco de dados
+2025-01-16 12:36:43 - database - INFO - Iniciando inicialização do banco de dados em: C:\Users\Suporte\Documents\CadastroNF\empenhos.db
+2025-01-16 12:36:43 - database - INFO - Criando tabela de usuários...
+2025-01-16 12:36:43 - database - INFO - Usuário padrão já existe
+2025-01-16 12:36:43 - database - INFO - Criando tabela de empenhos...
+2025-01-16 12:36:43 - database - INFO - Banco de dados inicializado com sucesso
+2025-01-16 12:36:43 - utils.logger - INFO - Iniciando aplicativo Flet
+2025-01-16 12:36:43 - flet - INFO - Assets path configured: C:\Users\Suporte\Documents\CadastroNF\assets
+2025-01-16 12:36:47 - flet - INFO - Starting Flet web server on port 58502...
+2025-01-16 12:36:47 - flet_web.fastapi - INFO - Web renderer configured: WebRenderer.CANVAS_KIT
+2025-01-16 12:36:47 - flet_web.fastapi - INFO - Use color emoji: False
+2025-01-16 12:36:47 - flet_web.fastapi - INFO - Route URL strategy configured: path
+2025-01-16 12:36:47 - flet_web.fastapi - INFO - Starting up Flet App Manager
+2025-01-16 12:36:47 - flet_web.fastapi - INFO - New FletApp: nECpL9wI
+2025-01-16 12:36:48 - flet_web.fastapi - INFO - New session created (1 total): _QVVhU6UxryBTiB6N_1334ee3428543dd89fa68e98ddd243cc03cb79e4
+2025-01-16 12:36:48 - flet_web.fastapi - INFO - Start session: QVVhU6UxryBTiB6N
+2025-01-16 12:36:48 - utils.logger - INFO - Iniciando aplicativo
+2025-01-16 12:36:48 - utils.logger - INFO - Mudando rota para: /login
+2025-01-16 12:36:48 - utils.logger - INFO - Status de autenticação: False
+2025-01-16 12:36:48 - utils.logger - INFO - Adicionando LoginView
+2025-01-16 12:44:11 - utils.logger - INFO - Inicializando banco de dados
+2025-01-16 12:44:11 - database - INFO - Iniciando inicialização do banco de dados em: C:\Users\Suporte\Documents\CadastroNF\empenhos.db
+2025-01-16 12:44:11 - database - INFO - Criando tabela de usuários...
+2025-01-16 12:44:11 - database - INFO - Usuário padrão já existe
+2025-01-16 12:44:11 - database - INFO - Criando tabela de empenhos...
+2025-01-16 12:44:11 - database - INFO - Banco de dados inicializado com sucesso
+2025-01-16 12:44:11 - utils.logger - INFO - Iniciando aplicativo Flet
+2025-01-16 12:44:11 - flet - INFO - Assets path configured: C:\Users\Suporte\Documents\CadastroNF\assets
+2025-01-16 12:44:12 - flet - INFO - Starting Flet web server on port 58502...
+2025-01-16 12:44:12 - flet_web.fastapi - INFO - Web renderer configured: WebRenderer.CANVAS_KIT
+2025-01-16 12:44:12 - flet_web.fastapi - INFO - Use color emoji: False
+2025-01-16 12:44:12 - flet_web.fastapi - INFO - Route URL strategy configured: path
+2025-01-16 12:44:12 - flet_web.fastapi - INFO - Starting up Flet App Manager
+2025-01-16 12:44:38 - utils.logger - INFO - Inicializando banco de dados
+2025-01-16 12:44:38 - database - INFO - Iniciando inicialização do banco de dados em: C:\Users\Suporte\Documents\CadastroNF\empenhos.db
+2025-01-16 12:44:38 - database - INFO - Criando tabela de usuários...
+2025-01-16 12:44:38 - database - INFO - Usuário padrão já existe
+2025-01-16 12:44:38 - database - INFO - Criando tabela de empenhos...
+2025-01-16 12:44:38 - database - INFO - Banco de dados inicializado com sucesso
+2025-01-16 12:44:38 - utils.logger - INFO - Iniciando aplicativo Flet
+2025-01-16 12:44:38 - flet - INFO - Assets path configured: C:\Users\Suporte\Documents\CadastroNF\assets
+2025-01-16 12:44:39 - flet - INFO - Starting Flet web server on port 55086...
+2025-01-16 12:44:39 - flet_web.fastapi - INFO - Web renderer configured: WebRenderer.CANVAS_KIT
+2025-01-16 12:44:39 - flet_web.fastapi - INFO - Use color emoji: False
+2025-01-16 12:44:39 - flet_web.fastapi - INFO - Route URL strategy configured: path
+2025-01-16 12:44:39 - flet_web.fastapi - INFO - Starting up Flet App Manager
+2025-01-16 12:44:39 - flet_web.fastapi - INFO - New FletApp: UvfKbRfO
+2025-01-16 12:44:39 - flet_web.fastapi - INFO - New session created (1 total): _myvLhjONP42myqVA_1334ee3428543dd89fa68e98ddd243cc03cb79e4
+2025-01-16 12:44:39 - flet_web.fastapi - INFO - Start session: myvLhjONP42myqVA
+2025-01-16 12:44:39 - utils.logger - INFO - Iniciando aplicativo
+2025-01-16 12:44:39 - utils.logger - INFO - Mudando rota para: /login
+2025-01-16 12:44:39 - utils.logger - INFO - Status de autenticação: False
+2025-01-16 12:44:39 - utils.logger - INFO - Adicionando LoginView
+2025-01-16 12:44:40 - utils.logger - INFO - Rota atual: /login
+2025-01-16 12:45:04 - utils.logger - INFO - Mudando rota para: /
+2025-01-16 12:45:04 - utils.logger - INFO - Status de autenticação: True
+2025-01-16 12:45:04 - utils.logger - INFO - MainView adicionada com sucesso
+2025-01-16 12:45:04 - utils.logger - INFO - Rota atual: /
+2025-01-16 12:45:10 - views.main_view - INFO - Iniciando logout...
+2025-01-16 12:45:10 - views.main_view - INFO - Sessão limpa.
+2025-01-16 12:45:10 - views.main_view - INFO - Pilha de visualizações limpa.
+2025-01-16 12:45:10 - views.main_view - INFO - Redirecionando para /login...
+2025-01-16 12:45:10 - utils.logger - INFO - Mudando rota para: /login
+2025-01-16 12:45:10 - views.main_view - ERROR - Erro ao fazer logout: 'NoneType' object has no attribute 'update'
+2025-01-16 12:45:10 - utils.logger - INFO - Status de autenticação: True
+2025-01-16 12:45:10 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=AttributeError("'NoneType' object has no attribute 'show_snack_bar'")>
+Traceback (most recent call last):
+  File "C:\Users\Suporte\Documents\CadastroNF\views\main_view.py", line 701, in logout
+    self.page.update()
+    ^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'update'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Python312\Lib\concurrent\futures\thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Suporte\Documents\CadastroNF\.venv\Lib\site-packages\flet\core\page.py", line 948, in wrapper
+    handler(*args)
+  File "C:\Users\Suporte\Documents\CadastroNF\views\main_view.py", line 706, in logout
+    self.show_error("Erro ao fazer logout")
+  File "C:\Users\Suporte\Documents\CadastroNF\views\main_view.py", line 620, in show_error
+    self.page.show_snack_bar(
+    ^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'show_snack_bar'
+2025-01-16 12:45:10 - utils.logger - INFO - Usuário já autenticado, redirecionando para home
+2025-01-16 12:45:10 - utils.logger - INFO - Mudando rota para: /
+2025-01-16 12:45:10 - utils.logger - INFO - Rota atual: /
+2025-01-16 12:45:10 - utils.logger - INFO - Status de autenticação: True
+2025-01-16 12:45:10 - utils.logger - INFO - MainView adicionada com sucesso
+2025-01-16 12:45:10 - utils.logger - INFO - Rota atual: /
+2025-01-16 12:45:15 - views.main_view - INFO - Iniciando logout...
+2025-01-16 12:45:15 - views.main_view - INFO - Sessão limpa.
+2025-01-16 12:45:15 - views.main_view - INFO - Pilha de visualizações limpa.
+2025-01-16 12:45:15 - views.main_view - INFO - Redirecionando para /login...
+2025-01-16 12:45:15 - utils.logger - INFO - Mudando rota para: /login
+2025-01-16 12:45:15 - views.main_view - ERROR - Erro ao fazer logout: 'NoneType' object has no attribute 'update'
+2025-01-16 12:45:15 - utils.logger - INFO - Status de autenticação: True
+2025-01-16 12:45:15 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=AttributeError("'NoneType' object has no attribute 'show_snack_bar'")>
+Traceback (most recent call last):
+  File "C:\Users\Suporte\Documents\CadastroNF\views\main_view.py", line 701, in logout
+    self.page.update()
+    ^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'update'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Python312\Lib\concurrent\futures\thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Suporte\Documents\CadastroNF\.venv\Lib\site-packages\flet\core\page.py", line 948, in wrapper
+    handler(*args)
+  File "C:\Users\Suporte\Documents\CadastroNF\views\main_view.py", line 706, in logout
+    self.show_error("Erro ao fazer logout")
+  File "C:\Users\Suporte\Documents\CadastroNF\views\main_view.py", line 620, in show_error
+    self.page.show_snack_bar(
+    ^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'show_snack_bar'
+2025-01-16 12:45:15 - utils.logger - INFO - Usuário já autenticado, redirecionando para home
+2025-01-16 12:45:15 - utils.logger - INFO - Rota atual: /
+2025-01-16 12:45:15 - utils.logger - INFO - Mudando rota para: /
+2025-01-16 12:45:15 - utils.logger - INFO - Status de autenticação: True
+2025-01-16 12:45:15 - utils.logger - INFO - MainView adicionada com sucesso
+2025-01-16 12:45:15 - utils.logger - INFO - Rota atual: /
+2025-01-16 12:45:17 - flet_web.fastapi - INFO - Session disconnected: _myvLhjONP42myqVA_1334ee3428543dd89fa68e98ddd243cc03cb79e4
+2025-01-16 13:14:32 - utils.logger - INFO - Inicializando banco de dados
+2025-01-16 13:14:32 - database - INFO - Iniciando inicialização do banco de dados em: C:\Users\Suporte\Documents\CadastroNF\empenhos.db
+2025-01-16 13:14:32 - database - INFO - Criando tabela de usuários...
+2025-01-16 13:14:32 - database - INFO - Usuário padrão já existe
+2025-01-16 13:14:32 - database - INFO - Criando tabela de empenhos...
+2025-01-16 13:14:32 - database - INFO - Banco de dados inicializado com sucesso
+2025-01-16 13:14:32 - utils.logger - INFO - Iniciando aplicativo Flet
+2025-01-16 13:14:32 - flet - INFO - Assets path configured: C:\Users\Suporte\Documents\CadastroNF\assets
+2025-01-16 13:14:33 - flet - INFO - Starting Flet web server on port 60485...
+2025-01-16 13:14:33 - flet_web.fastapi - INFO - Web renderer configured: WebRenderer.CANVAS_KIT
+2025-01-16 13:14:33 - flet_web.fastapi - INFO - Use color emoji: False
+2025-01-16 13:14:33 - flet_web.fastapi - INFO - Route URL strategy configured: path
+2025-01-16 13:14:33 - flet_web.fastapi - INFO - Starting up Flet App Manager
+2025-01-16 13:14:34 - flet_web.fastapi - INFO - New FletApp: 0dYxSm2M
+2025-01-16 13:14:34 - flet_web.fastapi - INFO - New session created (1 total): _uOrFlcm3K7hmnfC0_1334ee3428543dd89fa68e98ddd243cc03cb79e4
+2025-01-16 13:14:34 - flet_web.fastapi - INFO - Start session: uOrFlcm3K7hmnfC0
+2025-01-16 13:14:34 - utils.logger - INFO - Iniciando aplicativo
+2025-01-16 13:14:34 - utils.logger - INFO - Mudando rota para: /login
+2025-01-16 13:14:34 - utils.logger - INFO - Status de autenticação: False
+2025-01-16 13:14:34 - utils.logger - INFO - Adicionando LoginView
+2025-01-16 13:14:34 - utils.logger - INFO - Rota atual: /login
+2025-01-16 13:21:58 - utils.logger - INFO - Mudando rota para: /
+2025-01-16 13:21:58 - utils.logger - INFO - Status de autenticação: True
+2025-01-16 13:21:58 - utils.logger - INFO - MainView adicionada com sucesso
+2025-01-16 13:21:58 - utils.logger - INFO - Rota atual: /
+2025-01-16 13:22:01 - views.main_view - INFO - Iniciando logout...
+2025-01-16 13:22:01 - views.main_view - INFO - Sessão limpa.
+2025-01-16 13:22:01 - views.main_view - INFO - Pilha de visualizações limpa.
+2025-01-16 13:22:01 - views.main_view - INFO - Redirecionando para /login...
+2025-01-16 13:22:01 - utils.logger - INFO - Mudando rota para: /login
+2025-01-16 13:22:01 - views.main_view - ERROR - Erro ao fazer logout: 'NoneType' object has no attribute 'update'
+2025-01-16 13:22:01 - utils.logger - INFO - Status de autenticação: True
+2025-01-16 13:22:01 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=AttributeError("'NoneType' object has no attribute 'show_snack_bar'")>
+Traceback (most recent call last):
+  File "C:\Users\Suporte\Documents\CadastroNF\views\main_view.py", line 703, in logout
+    self.page.update()
+    ^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'update'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Python312\Lib\concurrent\futures\thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Suporte\Documents\CadastroNF\.venv\Lib\site-packages\flet\core\page.py", line 948, in wrapper
+    handler(*args)
+  File "C:\Users\Suporte\Documents\CadastroNF\views\main_view.py", line 708, in logout
+    self.show_error("Erro ao fazer logout")
+  File "C:\Users\Suporte\Documents\CadastroNF\views\main_view.py", line 620, in show_error
+    self.page.show_snack_bar(
+    ^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'show_snack_bar'
+2025-01-16 13:22:01 - utils.logger - INFO - Usuário já autenticado, redirecionando para home
+2025-01-16 13:22:02 - utils.logger - INFO - Rota atual: /
+2025-01-16 13:22:02 - utils.logger - INFO - Mudando rota para: /
+2025-01-16 13:22:02 - utils.logger - INFO - Status de autenticação: True
+2025-01-16 13:22:02 - utils.logger - INFO - MainView adicionada com sucesso
+2025-01-16 13:22:02 - utils.logger - INFO - Rota atual: /
+2025-01-16 13:22:08 - views.main_view - INFO - Iniciando logout...
+2025-01-16 13:22:08 - views.main_view - INFO - Sessão limpa.
+2025-01-16 13:22:08 - views.main_view - INFO - Pilha de visualizações limpa.
+2025-01-16 13:22:08 - views.main_view - INFO - Redirecionando para /login...
+2025-01-16 13:22:08 - utils.logger - INFO - Mudando rota para: /login
+2025-01-16 13:22:08 - views.main_view - ERROR - Erro ao fazer logout: 'NoneType' object has no attribute 'update'
+2025-01-16 13:22:08 - utils.logger - INFO - Status de autenticação: True
+2025-01-16 13:22:08 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=AttributeError("'NoneType' object has no attribute 'show_snack_bar'")>
+Traceback (most recent call last):
+  File "C:\Users\Suporte\Documents\CadastroNF\views\main_view.py", line 703, in logout
+    self.page.update()
+    ^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'update'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Python312\Lib\concurrent\futures\thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Suporte\Documents\CadastroNF\.venv\Lib\site-packages\flet\core\page.py", line 948, in wrapper
+    handler(*args)
+  File "C:\Users\Suporte\Documents\CadastroNF\views\main_view.py", line 708, in logout
+    self.show_error("Erro ao fazer logout")
+  File "C:\Users\Suporte\Documents\CadastroNF\views\main_view.py", line 620, in show_error
+    self.page.show_snack_bar(
+    ^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'show_snack_bar'
+2025-01-16 13:22:08 - utils.logger - INFO - Usuário já autenticado, redirecionando para home
+2025-01-16 13:22:08 - utils.logger - INFO - Rota atual: /
+2025-01-16 13:22:08 - utils.logger - INFO - Mudando rota para: /
+2025-01-16 13:22:08 - utils.logger - INFO - Mudando rota para: /login
+2025-01-16 13:22:08 - utils.logger - INFO - Status de autenticação: True
+2025-01-16 13:22:08 - utils.logger - INFO - Status de autenticação: True
+2025-01-16 13:22:08 - utils.logger - INFO - Mudando rota para: /
+2025-01-16 13:22:08 - utils.logger - INFO - Usuário já autenticado, redirecionando para home
+2025-01-16 13:22:08 - utils.logger - INFO - Status de autenticação: True
+2025-01-16 13:22:08 - utils.logger - INFO - Rota atual: /
+2025-01-16 13:22:08 - utils.logger - INFO - MainView adicionada com sucesso
+2025-01-16 13:22:08 - utils.logger - INFO - Rota atual: /
+2025-01-16 13:22:08 - utils.logger - INFO - MainView adicionada com sucesso
+2025-01-16 13:22:08 - utils.logger - INFO - Rota atual: /
+2025-01-16 13:22:11 - flet_web.fastapi - INFO - Session disconnected: _uOrFlcm3K7hmnfC0_1334ee3428543dd89fa68e98ddd243cc03cb79e4
+2025-01-16 13:35:53 - utils.logger - INFO - Inicializando banco de dados
+2025-01-16 13:35:53 - database - INFO - Iniciando inicialização do banco de dados em: C:\Users\Suporte\Documents\CadastroNF\empenhos.db
+2025-01-16 13:35:53 - database - INFO - Criando tabela de usuários...
+2025-01-16 13:35:53 - database - INFO - Usuário padrão já existe
+2025-01-16 13:35:53 - database - INFO - Criando tabela de empenhos...
+2025-01-16 13:35:53 - database - INFO - Banco de dados inicializado com sucesso
+2025-01-16 13:35:53 - utils.logger - INFO - Iniciando aplicativo Flet
+2025-01-16 13:35:53 - flet - INFO - Assets path configured: C:\Users\Suporte\Documents\CadastroNF\assets
+2025-01-16 13:35:54 - flet - INFO - Starting Flet web server on port 59837...
+2025-01-16 13:35:54 - flet_web.fastapi - INFO - Web renderer configured: WebRenderer.CANVAS_KIT
+2025-01-16 13:35:54 - flet_web.fastapi - INFO - Use color emoji: False
+2025-01-16 13:35:54 - flet_web.fastapi - INFO - Route URL strategy configured: path
+2025-01-16 13:35:54 - flet_web.fastapi - INFO - Starting up Flet App Manager
+2025-01-16 13:35:54 - flet_web.fastapi - INFO - New FletApp: 5CxPl1Wv
+2025-01-16 13:35:55 - flet_web.fastapi - INFO - New session created (1 total): _Akh2u2GmsEqUSh8X_1334ee3428543dd89fa68e98ddd243cc03cb79e4
+2025-01-16 13:35:55 - flet_web.fastapi - INFO - Start session: Akh2u2GmsEqUSh8X
+2025-01-16 13:35:55 - utils.logger - INFO - Iniciando aplicativo
+2025-01-16 13:35:55 - utils.logger - INFO - Mudando rota para: /login
+2025-01-16 13:35:55 - utils.logger - INFO - Status de autenticação: False
+2025-01-16 13:35:55 - utils.logger - INFO - Adicionando LoginView
+2025-01-16 13:35:55 - utils.logger - INFO - Rota atual: /login
+2025-01-16 13:36:20 - utils.logger - INFO - Mudando rota para: /
+2025-01-16 13:36:20 - utils.logger - INFO - Status de autenticação: True
+2025-01-16 13:36:20 - utils.logger - INFO - MainView adicionada com sucesso
+2025-01-16 13:36:20 - utils.logger - INFO - Rota atual: /
+2025-01-16 13:36:26 - views.main_view - INFO - Iniciando logout...
+2025-01-16 13:36:26 - views.main_view - INFO - Sessão limpa.
+2025-01-16 13:36:26 - views.main_view - INFO - Pilha de visualizações limpa.
+2025-01-16 13:36:26 - views.main_view - INFO - Página atualizada (antes do redirecionamento).
+2025-01-16 13:36:26 - views.main_view - ERROR - Erro ao fazer logout: 'NoneType' object has no attribute 'go'
+2025-01-16 13:36:26 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=AttributeError("'NoneType' object has no attribute 'show_snack_bar'")>
+Traceback (most recent call last):
+  File "C:\Users\Suporte\Documents\CadastroNF\views\main_view.py", line 701, in logout
+    self.page.go("/login")
+    ^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'go'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Python312\Lib\concurrent\futures\thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Suporte\Documents\CadastroNF\.venv\Lib\site-packages\flet\core\page.py", line 948, in wrapper
+    handler(*args)
+  File "C:\Users\Suporte\Documents\CadastroNF\views\main_view.py", line 712, in logout
+    self.show_error("Erro ao fazer logout")
+  File "C:\Users\Suporte\Documents\CadastroNF\views\main_view.py", line 620, in show_error
+    self.page.show_snack_bar(
+    ^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'show_snack_bar'
+2025-01-16 13:54:50 - flet_web.fastapi - INFO - Session disconnected: _Akh2u2GmsEqUSh8X_1334ee3428543dd89fa68e98ddd243cc03cb79e4
+2025-01-16 13:55:03 - utils.logger - INFO - Inicializando banco de dados
+2025-01-16 13:55:03 - database - INFO - Iniciando inicialização do banco de dados em: C:\Users\Suporte\Documents\CadastroNF\empenhos.db
+2025-01-16 13:55:03 - database - INFO - Criando tabela de usuários...
+2025-01-16 13:55:03 - database - INFO - Usuário padrão já existe
+2025-01-16 13:55:03 - database - INFO - Criando tabela de empenhos...
+2025-01-16 13:55:03 - database - INFO - Banco de dados inicializado com sucesso
+2025-01-16 13:55:03 - utils.logger - INFO - Iniciando aplicativo Flet
+2025-01-16 13:55:03 - flet - INFO - Assets path configured: C:\Users\Suporte\Documents\CadastroNF\assets
+2025-01-16 13:55:04 - flet - INFO - Starting Flet web server on port 57419...
+2025-01-16 13:55:04 - flet_web.fastapi - INFO - Web renderer configured: WebRenderer.CANVAS_KIT
+2025-01-16 13:55:04 - flet_web.fastapi - INFO - Use color emoji: False
+2025-01-16 13:55:04 - flet_web.fastapi - INFO - Route URL strategy configured: path
+2025-01-16 13:55:04 - flet_web.fastapi - INFO - Starting up Flet App Manager
+2025-01-16 13:55:05 - flet_web.fastapi - INFO - New FletApp: pyb9gKEU
+2025-01-16 13:55:05 - flet_web.fastapi - INFO - New session created (1 total): _BpVEZfOn8KDasJci_1334ee3428543dd89fa68e98ddd243cc03cb79e4
+2025-01-16 13:55:05 - flet_web.fastapi - INFO - Start session: BpVEZfOn8KDasJci
+2025-01-16 13:55:05 - utils.logger - INFO - Iniciando aplicativo
+2025-01-16 13:55:05 - utils.logger - INFO - Mudando rota para: /login
+2025-01-16 13:55:05 - utils.logger - INFO - Status de autenticação: False
+2025-01-16 13:55:05 - utils.logger - INFO - Adicionando LoginView
+2025-01-16 13:55:05 - utils.logger - INFO - Rota atual: /login
+2025-01-16 13:55:20 - utils.logger - INFO - Mudando rota para: /
+2025-01-16 13:55:20 - utils.logger - INFO - Status de autenticação: True
+2025-01-16 13:55:20 - utils.logger - INFO - MainView adicionada com sucesso
+2025-01-16 13:55:20 - utils.logger - INFO - Rota atual: /
+2025-01-16 13:55:23 - views.main_view - INFO - Iniciando logout...
+2025-01-16 13:55:23 - views.main_view - INFO - Sessão limpa.
+2025-01-16 13:55:23 - views.main_view - INFO - Pilha de visualizações limpa.
+2025-01-16 13:55:23 - views.main_view - INFO - Página atualizada (antes do redirecionamento).
+2025-01-16 13:55:23 - views.main_view - INFO - Redirecionando para /login...
+2025-01-16 13:55:23 - utils.logger - INFO - Mudando rota para: /login
+2025-01-16 13:55:23 - utils.logger - INFO - Status de autenticação: False
+2025-01-16 13:55:23 - utils.logger - INFO - Adicionando LoginView
+2025-01-16 13:55:23 - utils.logger - INFO - Rota atual: /login
+2025-01-16 13:55:37 - utils.logger - INFO - Mudando rota para: /
+2025-01-16 13:55:37 - utils.logger - INFO - Status de autenticação: True
+2025-01-16 13:55:37 - utils.logger - INFO - MainView adicionada com sucesso
+2025-01-16 13:55:37 - utils.logger - INFO - Rota atual: /
+2025-01-16 13:55:38 - views.main_view - INFO - Mudando para o menu índice: 2
+2025-01-16 13:55:38 - views.main_view - INFO - Carregando view Empenhos
+2025-01-16 13:55:39 - views.main_view - INFO - Iniciando logout...
+2025-01-16 13:55:39 - views.main_view - INFO - Sessão limpa.
+2025-01-16 13:55:39 - views.main_view - INFO - Pilha de visualizações limpa.
+2025-01-16 13:55:39 - views.main_view - INFO - Página atualizada (antes do redirecionamento).
+2025-01-16 13:55:39 - views.main_view - INFO - Redirecionando para /login...
+2025-01-16 13:55:39 - utils.logger - INFO - Mudando rota para: /login
+2025-01-16 13:55:39 - utils.logger - INFO - Status de autenticação: False
+2025-01-16 13:55:39 - utils.logger - INFO - Adicionando LoginView
+2025-01-16 13:55:39 - utils.logger - INFO - Rota atual: /login
+2025-01-16 13:55:41 - flet_web.fastapi - INFO - Session disconnected: _BpVEZfOn8KDasJci_1334ee3428543dd89fa68e98ddd243cc03cb79e4

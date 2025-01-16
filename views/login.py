@@ -100,7 +100,8 @@ class LoginView(ft.View):
                 
                 # Armazena os dados do usuário na página
                 self.page.user_data = user_data
-                
+                self.page.session.set("user_id", user_data["id"]) # Adicione essa linha para salvar o ID na sessão
+
                 # Apenas navega para a rota principal
                 # O sistema de rotas cuidará de criar e adicionar a MainView
                 self.page.go('/')

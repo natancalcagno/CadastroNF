@@ -43,7 +43,9 @@ def main(page: ft.Page):
             page.views.clear()
 
             # Verifica se o usuário está autenticado
-            is_authenticated = hasattr(page, 'user_data') and page.user_data is not None
+            #is_authenticated = hasattr(page, 'user_data') and page.user_data is not None
+            is_authenticated = page.session.get("user_id") is not None  # Verifique se um user_id está na sessão, por exemplo.
+            
             logger.info(f"Status de autenticação: {is_authenticated}")
 
             if is_authenticated:
@@ -67,7 +69,7 @@ def main(page: ft.Page):
                     page.views.append(LoginView(page))
                 else:
                     page.go('/login') # Redireciona para login para qualquer outra rota
-
+            logger.info(f"Rota atual: {page.route}")
             # Atualiza a página
             page.update()
 
@@ -80,15 +82,15 @@ def main(page: ft.Page):
             page.views.append(LoginView(page))
             page.go('/login')
 
-    def view_pop(view):
-        """Gerencia o retorno de views"""
-        try:
-            page.views.pop()
-            top_view = page.views[-1]
-            page.go(top_view.route)
-        except Exception as e:
-            logger.error(f"Erro ao retornar view: {str(e)}")
-            page.go('/login')
+    # def view_pop(view):
+    #     """Gerencia o retorno de views"""
+    #     try:
+    #         page.views.pop()
+    #         top_view = page.views[-1]
+    #         page.go(top_view.route)
+    #     except Exception as e:
+    #         logger.error(f"Erro ao retornar view: {str(e)}")
+    #         page.go('/login')
 
     # Removendo on_resize
     # def on_resize(e):
@@ -98,7 +100,7 @@ def main(page: ft.Page):
 
     # Configura os gerenciadores de navegação
     page.on_route_change = route_change
-    page.on_view_pop = view_pop
+    # page.on_view_pop = view_pop
     # Removendo page.on_resize
     # page.on_resize = on_resize
     

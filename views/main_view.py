@@ -683,18 +683,26 @@ class MainView(ft.View):
     def logout(self, e):
         """Realiza o logout do usuário"""
         try:
+            logger.info("Iniciando logout...")
             # Limpa os dados da sessão
             self.page.session.clear()
             self.current_user = None
+            logger.info("Sessão limpa.")
 
             # Limpa a pilha de visualizações
             self.page.views.clear()
+            logger.info("Pilha de visualizações limpa.")
+            
+            # Forçar atualização da página
+           
+            logger.info("Página atualizada (antes do redirecionamento).")
 
             # Redireciona para a tela de login
             self.page.go("/login")
+            logger.info("Redirecionando para /login...")
             
-            # Atualiza a página
-            self.page.update()
+            print(f"DEBUG: self.page no logout: {self.page}")  # Adicione esta linha
+            
 
         except Exception as e:
             logger.error(f"Erro ao fazer logout: {str(e)}")
