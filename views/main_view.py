@@ -71,12 +71,85 @@ class MainView(ft.View):
                 padding=ft.padding.only(left=20, right=20, top=10, bottom=10),
                 bgcolor=ft.colors.SURFACE_VARIANT,
             )
+            
+            # Lista para armazenar os empenhos selecionados
+            self.selected_empenhos = []
 
-            # Área de conteúdo
-            self.content_area = ft.Container(
-                content=self.home_view(),
-                expand=True,
-                padding=20
+            # Botões de ação
+            self.print_button = ft.ElevatedButton(
+                "Imprimir Selecionados",
+                icon=ft.icons.PRINT,
+                on_click=self.print_selected,
+                disabled=True
+            )
+
+            self.export_button = ft.ElevatedButton(
+                "Exportar para Excel",
+                icon=ft.icons.DOWNLOAD,
+                on_click=self.export_to_excel
+            )
+
+            # Área de pesquisa
+            self.search_field = ft.TextField(
+                label="Pesquisar empenhos",
+                width=400,
+                prefix_icon=ft.icons.SEARCH,
+                on_change=self.filter_empenhos
+            )
+            
+            # Tabela de empenhos
+            self.data_table = ft.DataTable(
+                columns=[
+                    ft.DataColumn(ft.Text("Selecionar")),
+                    ft.DataColumn(ft.Text("Data Entrada")),
+                    ft.DataColumn(ft.Text("Número")),
+                    ft.DataColumn(ft.Text("Empresa")),
+                    ft.DataColumn(ft.Text("Setor")),
+                    ft.DataColumn(ft.Text("Nº Nota")),
+                    ft.DataColumn(ft.Text("Data Nota")),
+                    ft.DataColumn(ft.Text("Valor")),
+                    ft.DataColumn(ft.Text("Data Saída")),
+                    ft.DataColumn(ft.Text("Observação")),
+                    ft.DataColumn(ft.Text("Ações")),
+                ],
+                rows=[]
+            )
+
+            # Área de conteúdo - Layout da Home
+            self.content_area = ft.Column(
+                controls=[
+                    # Cabeçalho com boas-vindas e botões de ação
+                    ft.Row(
+                        controls=[
+                            ft.Text(
+                                f"Bem-vindo, {self.current_user['username'] if self.current_user else ''}!",
+                                size=24,
+                                weight=ft.FontWeight.BOLD
+                            ),
+                            ft.Container(expand=True),  # Espaçador
+                            self.print_button,
+                            self.export_button,
+                        ],
+                        alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
+                    ),
+
+                    # Área de pesquisa
+                    ft.Container(
+                        content=self.search_field,
+                        padding=ft.padding.only(bottom=20)
+                    ),
+
+                    # Tabela de empenhos
+                    ft.Text(
+                        "Empenhos Cadastrados:",
+                        size=20,
+                        weight=ft.FontWeight.BOLD
+                    ),
+                    
+                    self.data_table
+                ],
+                spacing=20,
+                scroll=ft.ScrollMode.AUTO
             )
 
             # Container principal
@@ -84,7 +157,11 @@ class MainView(ft.View):
                 content=ft.Column(
                     controls=[
                         header,
-                        self.content_area
+                        ft.Container(
+                            content=self.content_area,
+                            expand=True,
+                            padding=20
+                        )
                     ],
                     expand=True,
                     spacing=0,
@@ -107,7 +184,7 @@ class MainView(ft.View):
         """Gerencia a mudança de menu"""
         try:
             logger.info(f"Mudando para o menu índice: {index}")
-            
+
             # Verifica permissão para acessar a tela de usuários
             if index == 1:  # Usuários
                 if not self.current_user or self.current_user.get("user_type") != "admin":
@@ -115,50 +192,11 @@ class MainView(ft.View):
                     self.show_error("Acesso não autorizado")
                     return
                 logger.info("Acesso autorizado para área de usuários")
-            
-            # Limpa o conteúdo atual
-            self.content_area.content = None
-            
+
+            # Atualiza a área de conteúdo com base na seleção do menu
             if index == 0:  # Home
                 logger.info("Carregando view Home")
-                self.content_area.content = self.home_view()
-            elif index == 1:  # Usuários
-                logger.info("Carregando view Usuários")
-                self.content_area.content = UserView(self.page)
-            elif index == 2:  # Empenhos
-                logger.info("Carregando view Empenhos")
-                self.content_area.content = EmpenhoView(self.page)
-            
-            # Atualiza o conteúdo
-            self.content_area.update()
-            
-        except Exception as e:
-            logger.error(f"Erro ao mudar menu: {str(e)}")
-            self.show_error("Erro ao carregar a tela selecionada")
-
-    def home_view(self):
-        """Retorna a view inicial com dashboard e listagem de empenhos"""
-        try:
-            # Lista para armazenar os empenhos selecionados
-            self.selected_empenhos = []
-
-            # Botões de ação
-            self.print_button = ft.ElevatedButton(
-                "Imprimir Selecionados",
-                icon=ft.icons.PRINT,
-                on_click=self.print_selected,
-                disabled=True
-            )
-
-            self.export_button = ft.ElevatedButton(
-                "Exportar para Excel",
-                icon=ft.icons.DOWNLOAD,
-                on_click=self.export_to_excel
-            )
-
-            # Container principal
-            content = ft.Column(
-                controls=[
+                self.content_area.controls = [
                     # Cabeçalho com boas-vindas e botões de ação
                     ft.Row(
                         controls=[
@@ -176,12 +214,7 @@ class MainView(ft.View):
 
                     # Área de pesquisa
                     ft.Container(
-                        content=ft.TextField(
-                            label="Pesquisar empenhos",
-                            width=400,
-                            prefix_icon=ft.icons.SEARCH,
-                            on_change=self.filter_empenhos
-                        ),
+                        content=self.search_field,
                         padding=ft.padding.only(bottom=20)
                     ),
 
@@ -191,18 +224,35 @@ class MainView(ft.View):
                         size=20,
                         weight=ft.FontWeight.BOLD
                     ),
-                    
-                    self.create_empenhos_table()
-                ],
-                spacing=20,
-                scroll=ft.ScrollMode.AUTO
-            )
 
-            return content
+                    self.data_table
+                ]
+                
+                # Carrega e exibe os dados dos empenhos
+                self.load_and_show_empenhos()
 
-        except Exception as ex:
-            logger.error(f"Erro ao construir home view: {str(ex)}")
-            return ft.Text("Erro ao carregar a página inicial")
+            elif index == 1:  # Usuários
+                logger.info("Carregando view Usuários")
+                self.content_area.controls = [UserView(self.page)]
+
+            elif index == 2:  # Empenhos
+                logger.info("Carregando view Empenhos")
+                self.content_area.controls = [EmpenhoView(self.page)]
+
+            # Atualiza a área de conteúdo
+            self.content_area.update()
+
+        except Exception as e:
+            logger.error(f"Erro ao mudar menu: {str(e)}")
+            self.show_error(f"Erro ao mudar menu: {e}")
+
+    def load_and_show_empenhos(self):
+        """Carrega os empenhos e atualiza a tabela"""
+        self.load_empenhos()
+        if self.data_table.page:  # Verifica se a data_table está na página
+            self.data_table.update()
+
+
 
     def get_empenhos(self, search_term=None):
         """Busca os empenhos mais recentes"""
@@ -254,77 +304,6 @@ class MainView(ft.View):
         except Exception as e:
             logger.error(f"Erro ao buscar empenhos: {str(e)}")
             return []
-
-    def create_empenhos_table(self):
-        """Cria a tabela de empenhos"""
-        try:
-            # Busca os empenhos do banco de dados
-            empenhos = self.get_empenhos()
-            
-            if not empenhos:
-                return ft.Text("Nenhum empenho encontrado")
-
-            # Cria a tabela
-            return ft.DataTable(
-                columns=[
-                    ft.DataColumn(ft.Text("Selecionar")),
-                    ft.DataColumn(ft.Text("Data Entrada")),
-                    ft.DataColumn(ft.Text("Número")),
-                    ft.DataColumn(ft.Text("Empresa")),
-                    ft.DataColumn(ft.Text("Setor")),
-                    ft.DataColumn(ft.Text("Nº Nota")),
-                    ft.DataColumn(ft.Text("Data Nota")),
-                    ft.DataColumn(ft.Text("Valor")),
-                    ft.DataColumn(ft.Text("Data Saída")),
-                    ft.DataColumn(ft.Text("Observação")),
-                    ft.DataColumn(ft.Text("Ações")),
-                ],
-                rows=[
-                    ft.DataRow(
-                        cells=[
-                            ft.DataCell(
-                                ft.Checkbox(
-                                    value=False,
-                                    data=empenho["id"],
-                                    on_change=self.on_select_empenho
-                                )
-                            ),
-                            ft.DataCell(ft.Text(empenho["data_entrada"])),
-                            ft.DataCell(ft.Text(empenho["numero"])),
-                            ft.DataCell(ft.Text(empenho["empresa"])),
-                            ft.DataCell(ft.Text(empenho["setor"])),
-                            ft.DataCell(ft.Text(empenho["numero_nota"])),
-                            ft.DataCell(ft.Text(empenho["data_nota"])),
-                            ft.DataCell(ft.Text(f"R$ {empenho['valor']:.2f}")),
-                            ft.DataCell(ft.Text(empenho["data_saida"])),
-                            ft.DataCell(ft.Text(empenho["observacao"])),
-                            ft.DataCell(
-                                ft.Row(
-                                    [
-                                        ft.IconButton(
-                                            icon=ft.icons.EDIT,
-                                            icon_color=ft.colors.BLUE,
-                                            tooltip="Editar",
-                                            data=empenho["id"],
-                                            on_click=self.edit_empenho
-                                        ),
-                                        ft.IconButton(
-                                            icon=ft.icons.DELETE,
-                                            icon_color=ft.colors.RED,
-                                            tooltip="Excluir",
-                                            data=empenho["id"],
-                                            on_click=self.delete_empenho
-                                        ),
-                                    ]
-                                )
-                            ),
-                        ]
-                    ) for empenho in empenhos
-                ],
-            )
-        except Exception as e:
-            logger.error(f"Erro ao criar tabela de empenhos: {str(e)}")
-            return ft.Text("Erro ao carregar tabela de empenhos")
 
     def on_select_empenho(self, e):
         """Gerencia a seleção de empenhos"""
@@ -480,79 +459,76 @@ class MainView(ft.View):
     def load_empenhos(self, search_term=None):
         """Carrega os empenhos do banco de dados"""
         try:
-            with get_db_connection() as conn:
-                cursor = conn.cursor()
-                
-                if search_term:
-                    query = """
-                        SELECT * FROM empenhos 
-                        WHERE numero LIKE ? 
-                        OR empresa LIKE ? 
-                        OR setor LIKE ?
-                        OR observacao LIKE ?
-                        ORDER BY data_entrada DESC
-                    """
-                    search_pattern = f"%{search_term}%"
-                    cursor.execute(query, (search_pattern, search_pattern, search_pattern, search_pattern))
-                else:
-                    cursor.execute("SELECT * FROM empenhos ORDER BY data_entrada DESC")
-                
-                empenhos = cursor.fetchall()
-
             # Limpa as linhas existentes
             self.data_table.rows.clear()
 
-            # Adiciona os empenhos à tabela
-            for empenho in empenhos:
-                # Limita o tamanho da observação para não quebrar o layout
-                observacao = empenho["observacao"] or ""
-                if len(observacao) > 30:
-                    observacao = observacao[:27] + "..."
+            # Busca os empenhos do banco de dados
+            empenhos = self.get_empenhos(search_term)
 
+            if not empenhos:
+                # Adiciona uma linha indicando que não há empenhos
                 self.data_table.rows.append(
                     ft.DataRow(
-                        cells=[
-                            ft.DataCell(ft.Text(empenho["data_entrada"])),
-                            ft.DataCell(ft.Text(str(empenho["numero"]))),
-                            ft.DataCell(ft.Text(empenho["empresa"])),
-                            ft.DataCell(ft.Text(empenho["setor"])),
-                            ft.DataCell(ft.Text(empenho["numero_nota"])),
-                            ft.DataCell(ft.Text(empenho["data_nota"])),
-                            ft.DataCell(ft.Text(f"R$ {empenho['valor']:.2f}")),
-                            ft.DataCell(ft.Text(empenho["data_saida"])),
-                            ft.DataCell(
-                                ft.Container(
-                                    content=ft.Text(
-                                        observacao,
-                                        tooltip=empenho["observacao"] if empenho["observacao"] else ""
-                                    )
-                                )
-                            ),
-                            ft.DataCell(
-                                ft.Row(
-                                    [
-                                        # ft.IconButton(
-                                        #     icon=ft.icons.EDIT,
-                                        #     icon_color=ft.colors.BLUE,
-                                        #     tooltip="Editar",
-                                        #     data=empenho["id"],
-                                        #     on_click=self.edit_empenho
-                                        # ),
-                                        ft.IconButton(
-                                            icon=ft.icons.DELETE,
-                                            icon_color=ft.colors.RED,
-                                            tooltip="Excluir",
-                                            data=empenho["id"],
-                                            on_click=self.delete_empenho
-                                        ),
-                                    ]
-                                )
-                            ),
-                        ]
+                        cells=[ft.DataCell(ft.Text("Nenhum empenho encontrado")) for _ in range(len(self.data_table.columns))] # Cria celulas vazias para todas as colunas
                     )
                 )
+            else:
+                # Adiciona os empenhos à tabela
+                for empenho in empenhos:
+                    # Limita o tamanho da observação para não quebrar o layout
+                    observacao = empenho["observacao"] or ""
+                    if len(observacao) > 30:
+                        observacao = observacao[:27] + "..."
 
-            self.update()
+                    self.data_table.rows.append(
+                        ft.DataRow(
+                            cells=[
+                                ft.DataCell(
+                                    ft.Checkbox(
+                                        value=False,
+                                        data=empenho["id"],
+                                        on_change=self.on_select_empenho
+                                    )
+                                ),
+                                ft.DataCell(ft.Text(empenho["data_entrada"])),
+                                ft.DataCell(ft.Text(str(empenho["numero"]))),
+                                ft.DataCell(ft.Text(empenho["empresa"])),
+                                ft.DataCell(ft.Text(empenho["setor"])),
+                                ft.DataCell(ft.Text(empenho["numero_nota"])),
+                                ft.DataCell(ft.Text(empenho["data_nota"])),
+                                ft.DataCell(ft.Text(f"R$ {empenho['valor']:.2f}")),
+                                ft.DataCell(ft.Text(empenho["data_saida"])),
+                                ft.DataCell(
+                                    ft.Container(
+                                        content=ft.Text(
+                                            observacao,
+                                            tooltip=empenho["observacao"] if empenho["observacao"] else ""
+                                        )
+                                    )
+                                ),
+                                ft.DataCell(
+                                    ft.Row(
+                                        [
+                                            ft.IconButton(
+                                                icon=ft.icons.EDIT,
+                                                icon_color=ft.colors.BLUE,
+                                                tooltip="Editar",
+                                                data=empenho["id"],
+                                                on_click=self.edit_empenho
+                                            ),
+                                            ft.IconButton(
+                                                icon=ft.icons.DELETE,
+                                                icon_color=ft.colors.RED,
+                                                tooltip="Excluir",
+                                                data=empenho["id"],
+                                                on_click=self.delete_empenho
+                                            ),
+                                        ]
+                                    )
+                                ),
+                            ]
+                        )
+                    )
 
         except Exception as e:
             logger.error(f"Erro ao carregar empenhos: {str(e)}")
@@ -561,6 +537,8 @@ class MainView(ft.View):
     def filter_empenhos(self, e):
         """Filtra os empenhos com base no texto de pesquisa"""
         self.load_empenhos(e.control.value)
+        self.data_table.update()
+
 
     def edit_empenho(self, e):
         """Redireciona para a tela de edição do empenho"""
@@ -660,16 +638,47 @@ class MainView(ft.View):
     def set_current_user(self, user_data):
         """Define o usuário atual"""
         self.current_user = user_data
-        self.update_menu_permissions()
-        self.content_area.content = self.home_view()
-        # Não chama self.update() aqui, pois a view ainda será atualizada pelo sistema de rotas
+        self.content_area.controls = [
+            # Cabeçalho com boas-vindas e botões de ação
+            ft.Row(
+                controls=[
+                    ft.Text(
+                        f"Bem-vindo, {self.current_user['username'] if self.current_user else ''}!",
+                        size=24,
+                        weight=ft.FontWeight.BOLD
+                    ),
+                    ft.Container(expand=True),  # Espaçador
+                    self.print_button,
+                    self.export_button,
+                ],
+                alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
+            ),
 
-    def update_menu_permissions(self):
-        """Atualiza as permissões do menu baseado no tipo de usuário"""
-        if self.current_user and self.current_user.get("user_type") != "admin":
-            self.rail.destinations[2].disabled = True
-        else:
-            self.rail.destinations[2].disabled = False
+            # Área de pesquisa
+            ft.Container(
+                content=self.search_field,
+                padding=ft.padding.only(bottom=20)
+            ),
+
+            # Tabela de empenhos
+            ft.Text(
+                "Empenhos Cadastrados:",
+                size=20,
+                weight=ft.FontWeight.BOLD
+            ),
+
+            self.data_table
+        ]
+        self.load_and_show_empenhos()
+        # Remova esta linha:
+        # self.update()
+
+    # def update_menu_permissions(self):
+    #     """Atualiza as permissões do menu baseado no tipo de usuário"""
+    #     if self.current_user and self.current_user.get("user_type") != "admin":
+    #         self.rail.destinations[2].disabled = True
+    #     else:
+    #         self.rail.destinations[2].disabled = False
 
     def logout(self, e):
         """Realiza o logout do usuário"""
@@ -677,10 +686,16 @@ class MainView(ft.View):
             # Limpa os dados da sessão
             self.page.session.clear()
             self.current_user = None
-            
+
+            # Limpa a pilha de visualizações
+            self.page.views.clear()
+
             # Redireciona para a tela de login
             self.page.go("/login")
             
+            # Atualiza a página
+            self.page.update()
+
         except Exception as e:
             logger.error(f"Erro ao fazer logout: {str(e)}")
             self.show_error("Erro ao fazer logout")

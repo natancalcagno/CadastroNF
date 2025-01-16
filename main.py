@@ -1,3 +1,4 @@
+
 import flet as ft
 import logging
 from views.login import LoginView
@@ -37,43 +38,39 @@ def main(page: ft.Page):
         try:
             route = event.route
             logger.info(f"Mudando rota para: {route}")
-            
+
             # Limpa as views existentes
             page.views.clear()
-            
+
             # Verifica se o usuário está autenticado
             is_authenticated = hasattr(page, 'user_data') and page.user_data is not None
             logger.info(f"Status de autenticação: {is_authenticated}")
-            
-            if route == "/" and is_authenticated:
-                # Cria a MainView e configura antes de adicionar à página
-                main_view = MainView(page)
-                main_view.current_user = page.user_data  # Define o usuário sem chamar update()
-                page.views.append(main_view)
-                logger.info("MainView adicionada com sucesso")
-                
-            elif route == "/login":
-                if is_authenticated:
-                    # Se já estiver autenticado, redireciona para home sem criar nova view
+
+            if is_authenticated:
+                # Se autenticado, sempre vai para a MainView (rota '/')
+                if route == "/":
+                    main_view = MainView(page)
+                    main_view.set_current_user(page.user_data)
+                    page.views.append(main_view)
+                    main_view.load_and_show_empenhos()  # Chame aqui, depois de adicionar à página
+                    logger.info("MainView adicionada com sucesso")
+                elif route == "/login":
+                    # Se já estiver autenticado, redireciona para home
                     logger.info("Usuário já autenticado, redirecionando para home")
                     page.go('/')
-                    return  # Importante: retorna aqui para evitar adicionar nova view
                 else:
-                    # Adiciona LoginView apenas se não estiver autenticado
+                    page.go('/')  # Redireciona para home para qualquer outra rota
+            else:
+                # Se não estiver autenticado, vai para a LoginView (rota '/login')
+                if route == "/login":
                     logger.info("Adicionando LoginView")
                     page.views.append(LoginView(page))
-                    
-            else:
-                # Para qualquer outra rota, verifica autenticação
-                if is_authenticated:
-                    page.go('/')
                 else:
-                    page.go('/login')
-                return  # Retorna aqui para evitar atualizações desnecessárias
-                
-            # Atualiza a página apenas se chegou até aqui
+                    page.go('/login') # Redireciona para login para qualquer outra rota
+
+            # Atualiza a página
             page.update()
-            
+
         except Exception as e:
             import traceback
             logger.error(f"Erro na navegação: {str(e)}")
@@ -93,9 +90,17 @@ def main(page: ft.Page):
             logger.error(f"Erro ao retornar view: {str(e)}")
             page.go('/login')
 
+    # Removendo on_resize
+    # def on_resize(e):
+    #     """Gerencia o redimensionamento da janela e atualiza a tabela"""
+    #     if page.views and isinstance(page.views[-1], MainView):
+    #         page.views[-1].trigger_resize()
+
     # Configura os gerenciadores de navegação
     page.on_route_change = route_change
     page.on_view_pop = view_pop
+    # Removendo page.on_resize
+    # page.on_resize = on_resize
     
     # Inicializa o aplicativo na tela de login
     logger.info("Iniciando aplicativo")
