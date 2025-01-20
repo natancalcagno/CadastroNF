@@ -2,6 +2,7 @@ import flet as ft
 import logging
 from views.user_view import UserView
 from views.empenho_view import EmpenhoView
+from views.file_view import FileView  # Importe a FileView
 from database import get_db_connection
 from assets.styles import get_styles
 import traceback
@@ -40,6 +41,11 @@ class MainView(ft.View):
                         text="Empenhos",
                         icon=ft.icons.ATTACH_MONEY,
                         on_click=lambda e: self.menu_change(2),
+                    ),
+                     ft.ElevatedButton(
+                        text="Arquivos",
+                        icon=ft.icons.FOLDER_OPEN,
+                        on_click=lambda e: self.menu_change(3),
                     ),
                     ft.ElevatedButton(
                         text="Sair",
@@ -238,6 +244,10 @@ class MainView(ft.View):
             elif index == 2:  # Empenhos
                 logger.info("Carregando view Empenhos")
                 self.content_area.controls = [EmpenhoView(self.page)]
+            
+            elif index == 3: # Arquivos
+                logger.info("Carregando view Arquivos")
+                self.content_area.controls = [FileView(self.page)]
 
             # Atualiza a área de conteúdo
             self.content_area.update()
@@ -490,14 +500,14 @@ class MainView(ft.View):
                                         on_change=self.on_select_empenho
                                     )
                                 ),
-                                ft.DataCell(ft.Text(empenho["data_entrada"])),
+                                ft.DataCell(ft.Text(empenho["data_entrada"] if empenho["data_entrada"] else "")), # Trata como string
                                 ft.DataCell(ft.Text(str(empenho["numero"]))),
                                 ft.DataCell(ft.Text(empenho["empresa"])),
                                 ft.DataCell(ft.Text(empenho["setor"])),
                                 ft.DataCell(ft.Text(empenho["numero_nota"])),
-                                ft.DataCell(ft.Text(empenho["data_nota"])),
+                                ft.DataCell(ft.Text(empenho["data_nota"] if empenho["data_nota"] else "")), # Trata como string
                                 ft.DataCell(ft.Text(f"R$ {empenho['valor']:.2f}")),
-                                ft.DataCell(ft.Text(empenho["data_saida"])),
+                                ft.DataCell(ft.Text(empenho["data_saida"] if empenho["data_saida"] else "")), # Trata como string
                                 ft.DataCell(
                                     ft.Container(
                                         content=ft.Text(

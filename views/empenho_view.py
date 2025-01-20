@@ -599,7 +599,7 @@ class EmpenhoView(ft.UserControl):
 
             # Gera o PDF
             timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-            filename = f"empenhos_impressao_{timestamp}.pdf"
+            filename = f"empenhos_PDF{timestamp}.pdf"
             
             # Cria o diretório se não existir
             pdf_dir = "pdf_exports"
