@@ -353,7 +353,7 @@ class MainView(ft.View):
 
             # Gera o PDF
             timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-            filename = f"empenhos_impressao_{timestamp}.pdf"
+            filename = f"empenhos_PDF_{timestamp}.pdf"
             
             # Cria o diretório se não existir
             pdf_dir = "pdf_exports"
@@ -390,12 +390,14 @@ class MainView(ft.View):
                 'CustomTitle',
                 parent=styles['Title'],
                 fontSize=16,
-                spaceAfter=30,
+                spaceAfter=1,
                 alignment=1  # Centralizado
             )
 
             # Cabeçalho do documento
-            elements.append(Paragraph("Relatório de Notas Fiscais", title_style))
+            elements.append(Paragraph("PROTOCOLO PARA ENTREGA DE NOTAS FISCAIS", styles['Title']))
+            elements.append(Paragraph(" UNIDADE DE CONTROLE INTERNO", title_style))
+            elements.append(Paragraph("Atestamos que as respectivas notas fiscais foram entregues para a Secretaria de Finanças na presente data.", styles['Normal']))
             elements.append(Spacer(1, 20))
 
             # Cabeçalhos da tabela

@@ -617,52 +617,53 @@ class EmpenhoView(ft.UserControl):
             logger.error(f"Erro ao gerar PDF: {str(e)}")
             self.show_error("Erro ao gerar PDF")
 
-    def generate_pdf(self, empenhos, filepath):
-        """Gera o PDF com os dados dos empenhos"""
-        try:
+    # def generate_pdf(self, empenhos, filepath):
+    #     """Gera o PDF com os dados dos empenhos"""
+    #     try:
 
-            doc = SimpleDocTemplate(filepath, pagesize=letter)
-            elements = []
-            styles = getSampleStyleSheet()
+    #         doc = SimpleDocTemplate(filepath, pagesize=letter)
+    #         elements = []
+    #         styles = getSampleStyleSheet()
 
-            # Cabeçalho do documento
-            elements.append(Paragraph("PROTOCOLO PARA ENTREGA DE NOTAS FISCAIS \n UNIDADE DE CONTROLE INTERNO", styles['Title']))
-            elements.append(Paragraph(f"Data: {datetime.now().strftime('%d/%m/%Y %H:%M:%S')}", styles['Normal']))
-            elements.append(Paragraph("<br/><br/>", styles['Normal']))
+    #         # Cabeçalho do documento
+    #         elements.append(Paragraph("PROTOCOLO PARA ENTREGA DE NOTAS FISCAIS \n UNIDADE DE CONTROLE INTERNO", styles['Title']))
+    #         elements.append(Paragraph("Atestamos que as respectivas notas fiscais foram entregues para a Secretaria de Finanças na presente data.", styles['Normal']))
+    #         elements.append(Paragraph(f"Data: {datetime.now().strftime('%d/%m/%Y %H:%M:%S')}", styles['Normal']))
+    #         elements.append(Paragraph("<br/><br/>", styles['Normal']))
 
-            # Dados da tabela
-            data = [["Data Entrada", "Número", "Empresa", "Setor", "Nº Nota", "Valor"]]
-            for empenho in empenhos:
-                data.append([
-                    empenho["data_entrada"],
-                    str(empenho["numero"]),
-                    empenho["empresa"],
-                    empenho["setor"],
-                    empenho["numero_nota"],
-                    f"R$ {empenho['valor']:.2f}"
-                ])
+    #         # Dados da tabela
+    #         data = [["Data Entrada", "Número", "Empresa", "Setor", "Nº Nota", "Valor"]]
+    #         for empenho in empenhos:
+    #             data.append([
+    #                 empenho["data_entrada"],
+    #                 str(empenho["numero"]),
+    #                 empenho["empresa"],
+    #                 empenho["setor"],
+    #                 empenho["numero_nota"],
+    #                 f"R$ {empenho['valor']:.2f}"
+    #             ])
 
-            # Cria a tabela
-            table = Table(data)
-            table.setStyle(TableStyle([
-                ('BACKGROUND', (0, 0), (-1, 0), colors.grey),
-                ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
-                ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
-                ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
-                ('FONTSIZE', (0, 0), (-1, 0), 12),
-                ('BOTTOMPADDING', (0, 0), (-1, 0), 12),
-                ('BACKGROUND', (0, 1), (-1, -1), colors.white),
-                ('TEXTCOLOR', (0, 1), (-1, -1), colors.black),
-                ('FONTNAME', (0, 1), (-1, -1), 'Helvetica'),
-                ('FONTSIZE', (0, 1), (-1, -1), 10),
-                ('GRID', (0, 0), (-1, -1), 1, colors.black),
-                ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
-                ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
-            ]))
+    #         # Cria a tabela
+    #         table = Table(data)
+    #         table.setStyle(TableStyle([
+    #             ('BACKGROUND', (0, 0), (-1, 0), colors.grey),
+    #             ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
+    #             ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
+    #             ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
+    #             ('FONTSIZE', (0, 0), (-1, 0), 12),
+    #             ('BOTTOMPADDING', (0, 0), (-1, 0), 12),
+    #             ('BACKGROUND', (0, 1), (-1, -1), colors.white),
+    #             ('TEXTCOLOR', (0, 1), (-1, -1), colors.black),
+    #             ('FONTNAME', (0, 1), (-1, -1), 'Helvetica'),
+    #             ('FONTSIZE', (0, 1), (-1, -1), 10),
+    #             ('GRID', (0, 0), (-1, -1), 1, colors.black),
+    #             ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
+    #             ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
+    #         ]))
 
-            elements.append(table)
-            doc.build(elements)
+    #         elements.append(table)
+    #         doc.build(elements)
 
-        except Exception as e:
-            logger.error(f"Erro ao gerar PDF: {str(e)}")
-            raise
+    #     except Exception as e:
+    #         logger.error(f"Erro ao gerar PDF: {str(e)}")
+    #         raise
