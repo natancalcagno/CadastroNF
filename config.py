@@ -21,3 +21,8 @@ LOG_LEVEL = "INFO"
 # Configurações de Validação
 MAX_DESCRICAO_LENGTH = 500
 MIN_VALOR = 0.01
+
+# Configurações de arquivos estáticos
+STATIC_DIR = "static_files"
+PDF_DIR = os.path.join(STATIC_DIR, "pdf_exports")
+EXCEL_DIR = os.path.join(STATIC_DIR, "exports")

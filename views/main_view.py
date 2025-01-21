@@ -2,7 +2,7 @@ import flet as ft
 import logging
 from views.user_view import UserView
 from views.empenho_view import EmpenhoView
-from views.file_view import FileView  # Importe a FileView
+from views.file_view import FileView
 from database import get_db_connection
 from assets.styles import get_styles
 import traceback
@@ -13,12 +13,13 @@ from datetime import datetime
 logger = logging.getLogger(__name__)
 
 class MainView(ft.View):
-    def __init__(self, page):
+    def __init__(self, page, serve_file_function):
         super().__init__()
         self.page = page
         self.styles = get_styles()
         self.route = "/"
         self.current_user = None
+        self.serve_file_function = serve_file_function
         self.init_ui()
 
     def init_ui(self):
@@ -181,10 +182,9 @@ class MainView(ft.View):
         except Exception as e:
             logger.error(f"Erro ao inicializar interface: {str(e)}")
             self.controls = [ft.Text("Erro ao carregar interface")]
-
+    
     def build(self):
-        """Retorna o container principal"""
-        return self.main_container
+      return self.main_container
 
     def menu_change(self, index):
         """Gerencia a mudança de menu"""
@@ -247,7 +247,7 @@ class MainView(ft.View):
             
             elif index == 3: # Arquivos
                 logger.info("Carregando view Arquivos")
-                self.content_area.controls = [FileView(self.page)]
+                self.content_area.controls = [FileView(self.page, self.serve_file_function)]
 
             # Atualiza a área de conteúdo
             self.content_area.update()
@@ -261,8 +261,6 @@ class MainView(ft.View):
         self.load_empenhos()
         if self.data_table.page:  # Verifica se a data_table está na página
             self.data_table.update()
-
-
 
     def get_empenhos(self, search_term=None):
         """Busca os empenhos mais recentes"""
@@ -356,7 +354,7 @@ class MainView(ft.View):
             filename = f"empenhos_PDF_{timestamp}.pdf"
             
             # Cria o diretório se não existir
-            pdf_dir = "static_files/pdf_exports"
+            pdf_dir = "pdf_exports"
             if not os.path.exists(pdf_dir):
                 os.makedirs(pdf_dir)
             
@@ -551,7 +549,6 @@ class MainView(ft.View):
         self.load_empenhos(e.control.value)
         self.data_table.update()
 
-
     def edit_empenho(self, e):
         """Redireciona para a tela de edição do empenho"""
         try:
@@ -614,7 +611,7 @@ class MainView(ft.View):
             timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
             filename = f"empenhos_{timestamp}.xlsx"
             
-            export_dir = "static_files/exports"
+            export_dir = "exports"
             if not os.path.exists(export_dir):
                 os.makedirs(export_dir)
             
@@ -682,15 +679,6 @@ class MainView(ft.View):
             self.data_table
         ]
         self.load_and_show_empenhos()
-        # Remova esta linha:
-        # self.update()
-
-    # def update_menu_permissions(self):
-    #     """Atualiza as permissões do menu baseado no tipo de usuário"""
-    #     if self.current_user and self.current_user.get("user_type") != "admin":
-    #         self.rail.destinations[2].disabled = True
-    #     else:
-    #         self.rail.destinations[2].disabled = False
 
     def logout(self, e):
         """Realiza o logout do usuário"""
@@ -706,15 +694,11 @@ class MainView(ft.View):
             logger.info("Pilha de visualizações limpa.")
             
             # Forçar atualização da página
-           
             logger.info("Página atualizada (antes do redirecionamento).")
 
             # Redireciona para a tela de login
             self.page.go("/login")
             logger.info("Redirecionando para /login...")
-            
-            print(f"DEBUG: self.page no logout: {self.page}")  # Adicione esta linha
-            
 
         except Exception as e:
             logger.error(f"Erro ao fazer logout: {str(e)}")

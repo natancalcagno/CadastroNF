@@ -3,15 +3,17 @@ import logging
 import os
 from pathlib import Path
 import urllib.parse
+import webbrowser
 
 logger = logging.getLogger(__name__)
 
 class FileView(ft.UserControl):
-    def __init__(self, page):
+    def __init__(self, page, serve_file_function):
         super().__init__()
         self.page = page
         self.pdf_dir = "static_files/pdf_exports"
         self.excel_dir = "static_files/exports"
+        self.serve_file_function = serve_file_function
         self.init_ui()
 
     def build(self):
@@ -84,12 +86,16 @@ class FileView(ft.UserControl):
 
 
     def open_file(self, file_url):
-        """Abre o arquivo no visualizador padrão"""
-        try:
-             self.page.go(file_url) # muda de webbrowser para self.page.go
-        except Exception as e:
-            logger.error(f"Erro ao abrir o arquivo: {str(e)}")
-            self.show_error("Erro ao abrir o arquivo")
+      """Abre o arquivo no visualizador padrão"""
+      try:
+          url_content = self.serve_file_function(file_url.replace("/files/","")) # chama serve_file do main.py
+          if url_content: # verifica se foi retornado um link
+            webbrowser.open(url_content) # abre o link no navegador
+          else:
+            self.show_error("Erro ao obter o link do arquivo")
+      except Exception as e:
+        logger.error(f"Erro ao abrir o arquivo: {str(e)}")
+        self.show_error("Erro ao abrir o arquivo")
 
     def delete_file(self, file_path, file_name):
         """Exclui o arquivo"""

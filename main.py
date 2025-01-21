@@ -16,7 +16,7 @@ import os
 import mimetypes
 import re
 import base64
-
+import webbrowser
 
 logger = setup_logger()
 
@@ -43,13 +43,6 @@ def main(page: ft.Page):
             route = event.route
             logger.info(f"Mudando rota para: {route}")
 
-            # Verifica se a rota é para um arquivo estático
-            file_response = handle_static_files(page, route)
-            if file_response:
-                page.route = None  # Define a rota como None para não chamar os gerenciadores de rotas
-                page.update()
-                return
-
             # Limpa as views existentes
             page.views.clear()
 
@@ -62,9 +55,9 @@ def main(page: ft.Page):
             if is_authenticated:
                 # Se autenticado, sempre vai para a MainView (rota '/')
                 if route == "/":
-                    main_view = MainView(page)
-                    main_view.set_current_user(page.user_data)
+                    main_view = MainView(page, serve_file_function=serve_file) # Passa a função serve_file
                     page.views.append(main_view)
+                    main_view.set_current_user(page.user_data)
                     main_view.load_and_show_empenhos()  # Chame aqui, depois de adicionar à página
                     logger.info("MainView adicionada com sucesso")
                 elif route == "/login":
@@ -109,7 +102,6 @@ def main(page: ft.Page):
     logger.info("Iniciando aplicativo")
     page.go('/login')
 
-
 def serve_file(file_path):
     """Serve o arquivo estático"""
     try:
@@ -119,36 +111,19 @@ def serve_file(file_path):
             file_path
         )
         if os.path.exists(full_file_path) and os.path.isfile(full_file_path):
-             mime_type, _ = mimetypes.guess_type(full_file_path)
-             with open(full_file_path, "rb") as f:
+            mime_type, _ = mimetypes.guess_type(full_file_path)
+            with open(full_file_path, "rb") as f:
                  file_content = f.read()
-             
-             # Codifica o conteúdo do arquivo em base64
-             base64_content = base64.b64encode(file_content).decode("utf-8")
-
-             return ft.Text(
-                  f"""
-                      <iframe src="data:{mime_type};base64,{base64_content}" 
-                        width="100%" height="600px">
-                      </iframe>
-                  """,
-                    )
+            
+            # Codifica o conteúdo do arquivo em base64
+            base64_content = base64.b64encode(file_content).decode("utf-8")
+            
+            return f"data:{mime_type};base64,{base64_content}"
         else:
-           return ft.Text("Arquivo não encontrado")
+           return None
     except Exception as e:
         logger.error(f"Erro ao servir arquivo: {str(e)}")
-        return ft.Text(f"Erro ao servir arquivo: {str(e)}")
-
-
-def handle_static_files(page, url):
-    """Verifica se a rota é um arquivo estático e o serve."""
-    file_match = re.match(r"^/files/(.+)$", url)
-    if file_match:
-        file_path = file_match.group(1)
-        return serve_file(file_path)
-    return None
-
-
+        return None
 
 if __name__ == '__main__':
     try:
