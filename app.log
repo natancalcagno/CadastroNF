@@ -7448,3 +7448,20 @@ AttributeError: 'NoneType' object has no attribute 'show_snack_bar'
 2025-01-21 08:35:53 - flet_web.fastapi - INFO - Web renderer configured: WebRenderer.CANVAS_KIT
 2025-01-21 08:35:53 - flet_web.fastapi - INFO - Use color emoji: False
 2025-01-21 08:35:53 - flet_web.fastapi - INFO - Route URL strategy configured: path
+2025-01-21 08:35:53 - flet_web.fastapi - INFO - Starting up Flet App Manager
+2025-01-21 08:35:54 - flet_web.fastapi - INFO - New FletApp: T7vUivUu
+2025-01-21 08:35:54 - flet_web.fastapi - INFO - New session created (1 total): _xu3sQvdaebkF0VR7_36e75f5a0e2afa3e11e82e410723e199013eb36b
+2025-01-21 08:35:54 - flet_web.fastapi - INFO - Start session: xu3sQvdaebkF0VR7
+2025-01-21 08:35:54 - utils.logger - INFO - Iniciando aplicativo
+2025-01-21 08:35:54 - utils.logger - INFO - Mudando rota para: /login
+2025-01-21 08:35:54 - utils.logger - INFO - Status de autenticação: False
+2025-01-21 08:35:54 - utils.logger - INFO - Adicionando LoginView
+2025-01-21 08:35:54 - utils.logger - INFO - Rota atual: /login
+2025-01-21 08:36:05 - utils.logger - INFO - Mudando rota para: /
+2025-01-21 08:36:05 - utils.logger - INFO - Status de autenticação: True
+2025-01-21 08:36:05 - utils.logger - INFO - MainView adicionada com sucesso
+2025-01-21 08:36:05 - utils.logger - INFO - Rota atual: /
+2025-01-21 08:36:08 - views.main_view - INFO - Mudando para o menu índice: 3
+2025-01-21 08:36:08 - views.main_view - INFO - Carregando view Arquivos
+2025-01-21 08:36:08 - views.main_view - INFO - Mudando para o menu índice: 3
+2025-01-21 08:36:08 - views.main_view - INFO - Carregando view Arquivos
