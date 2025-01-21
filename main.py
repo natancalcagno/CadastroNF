@@ -1,4 +1,3 @@
-
 import flet as ft
 import logging
 from views.login import LoginView
@@ -13,6 +12,11 @@ from config import (
     PRIMARY_COLOR,
     SECONDARY_COLOR
 )
+import os
+import mimetypes
+import re
+import base64
+
 
 logger = setup_logger()
 
@@ -38,6 +42,13 @@ def main(page: ft.Page):
         try:
             route = event.route
             logger.info(f"Mudando rota para: {route}")
+
+            # Verifica se a rota é para um arquivo estático
+            file_response = handle_static_files(page, route)
+            if file_response:
+                page.route = None  # Define a rota como None para não chamar os gerenciadores de rotas
+                page.update()
+                return
 
             # Limpa as views existentes
             page.views.clear()
@@ -82,16 +93,6 @@ def main(page: ft.Page):
             page.views.append(LoginView(page))
             page.go('/login')
 
-    # def view_pop(view):
-    #     """Gerencia o retorno de views"""
-    #     try:
-    #         page.views.pop()
-    #         top_view = page.views[-1]
-    #         page.go(top_view.route)
-    #     except Exception as e:
-    #         logger.error(f"Erro ao retornar view: {str(e)}")
-    #         page.go('/login')
-
     # Removendo on_resize
     # def on_resize(e):
     #     """Gerencia o redimensionamento da janela e atualiza a tabela"""
@@ -108,15 +109,57 @@ def main(page: ft.Page):
     logger.info("Iniciando aplicativo")
     page.go('/login')
 
+
+def serve_file(file_path):
+    """Serve o arquivo estático"""
+    try:
+        full_file_path = os.path.join(
+            os.path.dirname(os.path.abspath(__file__)),
+            "static_files",
+            file_path
+        )
+        if os.path.exists(full_file_path) and os.path.isfile(full_file_path):
+             mime_type, _ = mimetypes.guess_type(full_file_path)
+             with open(full_file_path, "rb") as f:
+                 file_content = f.read()
+             
+             # Codifica o conteúdo do arquivo em base64
+             base64_content = base64.b64encode(file_content).decode("utf-8")
+
+             return ft.Text(
+                  f"""
+                      <iframe src="data:{mime_type};base64,{base64_content}" 
+                        width="100%" height="600px">
+                      </iframe>
+                  """,
+                    )
+        else:
+           return ft.Text("Arquivo não encontrado")
+    except Exception as e:
+        logger.error(f"Erro ao servir arquivo: {str(e)}")
+        return ft.Text(f"Erro ao servir arquivo: {str(e)}")
+
+
+def handle_static_files(page, url):
+    """Verifica se a rota é um arquivo estático e o serve."""
+    file_match = re.match(r"^/files/(.+)$", url)
+    if file_match:
+        file_path = file_match.group(1)
+        return serve_file(file_path)
+    return None
+
+
+
 if __name__ == '__main__':
     try:
         logger.info("Inicializando banco de dados")
         init_db()
         
         logger.info("Iniciando aplicativo Flet")
-        ft.app(target=main, view=ft.WEB_BROWSER)
-        
+        ft.app(
+            target=main,
+            view=ft.WEB_BROWSER,
+        )
     except Exception as e:
         logger.error(f"Erro fatal ao iniciar o aplicativo: {str(e)}")
         raise
-

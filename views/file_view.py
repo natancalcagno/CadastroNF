@@ -1,9 +1,8 @@
 import flet as ft
 import logging
 import os
-import webbrowser
-import urllib.parse
 from pathlib import Path
+import urllib.parse
 
 logger = logging.getLogger(__name__)
 
@@ -11,8 +10,8 @@ class FileView(ft.UserControl):
     def __init__(self, page):
         super().__init__()
         self.page = page
-        self.pdf_dir = "pdf_exports"
-        self.excel_dir = "exports"
+        self.pdf_dir = "static_files/pdf_exports"
+        self.excel_dir = "static_files/exports"
         self.init_ui()
 
     def build(self):
@@ -27,7 +26,7 @@ class FileView(ft.UserControl):
         )
 
     def init_ui(self):
-      self.files_list = ft.Column(
+        self.files_list = ft.Column(
             controls=[
                 ft.Text("Arquivos PDF", size=20, weight=ft.FontWeight.BOLD),
                 self.create_file_list(self.pdf_dir, ".pdf"),
@@ -80,13 +79,14 @@ class FileView(ft.UserControl):
 
     def file_path_to_url(self, file_path):
         """Converte o caminho do arquivo para uma URL válida"""
-        file_path = Path(file_path).resolve()
-        return urllib.parse.urljoin("file:///", str(file_path).replace("\\","/"))
+        relative_path = os.path.relpath(file_path, os.path.dirname(os.path.abspath(__file__)))
+        return f"/files/{relative_path}"
+
 
     def open_file(self, file_url):
         """Abre o arquivo no visualizador padrão"""
         try:
-           webbrowser.open(file_url)
+             self.page.go(file_url) # muda de webbrowser para self.page.go
         except Exception as e:
             logger.error(f"Erro ao abrir o arquivo: {str(e)}")
             self.show_error("Erro ao abrir o arquivo")
@@ -124,6 +124,7 @@ class FileView(ft.UserControl):
         self.page.dialog = dlg
         dlg.open = True
         self.page.update()
+
 
     def show_error(self, message: str):
         """Exibe uma mensagem de erro"""

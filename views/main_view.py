@@ -356,7 +356,7 @@ class MainView(ft.View):
             filename = f"empenhos_PDF_{timestamp}.pdf"
             
             # Cria o diretório se não existir
-            pdf_dir = "pdf_exports"
+            pdf_dir = "static_files/pdf_exports"
             if not os.path.exists(pdf_dir):
                 os.makedirs(pdf_dir)
             
@@ -614,7 +614,7 @@ class MainView(ft.View):
             timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
             filename = f"empenhos_{timestamp}.xlsx"
             
-            export_dir = "exports"
+            export_dir = "static_files/exports"
             if not os.path.exists(export_dir):
                 os.makedirs(export_dir)
             
