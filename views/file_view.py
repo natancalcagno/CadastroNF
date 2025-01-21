@@ -2,6 +2,8 @@ import flet as ft
 import logging
 import os
 import webbrowser
+import urllib.parse
+from pathlib import Path
 
 logger = logging.getLogger(__name__)
 
@@ -37,7 +39,6 @@ class FileView(ft.UserControl):
             scroll=ft.ScrollMode.AUTO
         )
 
-
     def create_file_list(self, directory, extension):
         """Cria a lista de arquivos com base no diretório e extensão"""
         if not os.path.exists(directory):
@@ -48,10 +49,11 @@ class FileView(ft.UserControl):
         if not files:
             return ft.Text(f"Nenhum arquivo {extension} encontrado.")
 
-
         file_controls = []
         for file in files:
             file_path = os.path.join(directory, file)
+            # Converte o caminho do arquivo para URL
+            file_url = self.file_path_to_url(file_path)
             file_controls.append(
                 ft.Container(
                     content=ft.Row(
@@ -60,7 +62,7 @@ class FileView(ft.UserControl):
                             ft.IconButton(
                                 icon=ft.icons.OPEN_IN_NEW,
                                 tooltip="Abrir",
-                                on_click=lambda e, path=file_path: self.open_file(path)
+                                on_click=lambda e, path=file_url: self.open_file(path)
                             ),
                             ft.IconButton(
                                 icon=ft.icons.DELETE,
@@ -76,11 +78,15 @@ class FileView(ft.UserControl):
             )
         return ft.Column(controls=file_controls)
 
+    def file_path_to_url(self, file_path):
+        """Converte o caminho do arquivo para uma URL válida"""
+        file_path = Path(file_path).resolve()
+        return urllib.parse.urljoin("file:///", str(file_path).replace("\\","/"))
 
-    def open_file(self, file_path):
+    def open_file(self, file_url):
         """Abre o arquivo no visualizador padrão"""
         try:
-            webbrowser.open(file_path)
+           webbrowser.open(file_url)
         except Exception as e:
             logger.error(f"Erro ao abrir o arquivo: {str(e)}")
             self.show_error("Erro ao abrir o arquivo")
@@ -118,7 +124,6 @@ class FileView(ft.UserControl):
         self.page.dialog = dlg
         dlg.open = True
         self.page.update()
-
 
     def show_error(self, message: str):
         """Exibe uma mensagem de erro"""
