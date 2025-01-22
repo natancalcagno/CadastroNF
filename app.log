@@ -752,3 +752,49 @@
 2025-01-22 13:00:22 - utils.logger - INFO - Status de autenticação: False
 2025-01-22 13:00:22 - utils.logger - INFO - Adicionando LoginView
 2025-01-22 13:00:22 - utils.logger - INFO - Rota atual: /login
+2025-01-22 13:01:24 - utils.logger - INFO - Inicializando banco de dados
+2025-01-22 13:01:24 - database - INFO - Iniciando inicialização do banco de dados em: C:\Users\Suporte\Documents\CadastroNF\empenhos.db
+2025-01-22 13:01:24 - database - INFO - Criando tabela de usuários...
+2025-01-22 13:01:24 - database - INFO - Usuário padrão já existe
+2025-01-22 13:01:24 - database - INFO - Criando tabela de empenhos...
+2025-01-22 13:01:24 - database - INFO - Banco de dados inicializado com sucesso
+2025-01-22 13:01:24 - utils.logger - INFO - Iniciando aplicativo Flet
+2025-01-22 13:01:24 - flet - INFO - Assets path configured: C:\Users\Suporte\Documents\CadastroNF\assets
+2025-01-22 13:01:26 - flet - INFO - Starting Flet web server on port 55357...
+2025-01-22 13:01:26 - flet_web.fastapi - INFO - Web renderer configured: WebRenderer.CANVAS_KIT
+2025-01-22 13:01:26 - flet_web.fastapi - INFO - Use color emoji: False
+2025-01-22 13:01:26 - flet_web.fastapi - INFO - Route URL strategy configured: path
+2025-01-22 13:01:27 - flet_web.fastapi - INFO - Starting up Flet App Manager
+2025-01-22 13:01:27 - flet_web.fastapi - INFO - New FletApp: JyWo5yBG
+2025-01-22 13:01:27 - flet_web.fastapi - INFO - New session created (1 total): _s9wuzoWdVHfBdxRH_36e75f5a0e2afa3e11e82e410723e199013eb36b
+2025-01-22 13:01:27 - flet_web.fastapi - INFO - Start session: s9wuzoWdVHfBdxRH
+2025-01-22 13:01:27 - utils.logger - INFO - Iniciando aplicativo
+2025-01-22 13:01:27 - utils.logger - INFO - Mudando rota para: /login
+2025-01-22 13:01:27 - utils.logger - INFO - Status de autenticação: False
+2025-01-22 13:01:27 - utils.logger - INFO - Adicionando LoginView
+2025-01-22 13:01:27 - utils.logger - INFO - Rota atual: /login
+2025-01-22 13:07:31 - utils.logger - INFO - Inicializando banco de dados
+2025-01-22 13:07:31 - database - INFO - Iniciando inicialização do banco de dados em: C:\Users\Suporte\Documents\CadastroNF\empenhos.db
+2025-01-22 13:07:31 - database - INFO - Criando tabela de usuários...
+2025-01-22 13:07:31 - database - INFO - Usuário padrão já existe
+2025-01-22 13:07:31 - database - INFO - Criando tabela de empenhos...
+2025-01-22 13:07:31 - database - INFO - Banco de dados inicializado com sucesso
+2025-01-22 13:07:31 - utils.logger - INFO - Iniciando aplicativo Flet
+2025-01-22 13:07:31 - flet - INFO - Assets path configured: C:\Users\Suporte\Documents\CadastroNF\assets
+2025-01-22 13:07:32 - flet - INFO - Starting Flet web server on port 55357...
+2025-01-22 13:07:32 - flet_web.fastapi - INFO - Web renderer configured: WebRenderer.CANVAS_KIT
+2025-01-22 13:07:32 - flet_web.fastapi - INFO - Use color emoji: False
+2025-01-22 13:07:32 - flet_web.fastapi - INFO - Route URL strategy configured: path
+2025-01-22 13:07:33 - flet_web.fastapi - INFO - Starting up Flet App Manager
+2025-01-22 13:07:34 - flet_web.fastapi - INFO - New FletApp: 7jvLaLFI
+2025-01-22 13:07:34 - flet_web.fastapi - INFO - New session created (1 total): _I7FhKQscfHEJLz5A_36e75f5a0e2afa3e11e82e410723e199013eb36b
+2025-01-22 13:07:34 - flet_web.fastapi - INFO - Start session: I7FhKQscfHEJLz5A
+2025-01-22 13:07:34 - utils.logger - INFO - Iniciando aplicativo
+2025-01-22 13:07:34 - utils.logger - INFO - Mudando rota para: /login
+2025-01-22 13:07:34 - utils.logger - INFO - Status de autenticação: False
+2025-01-22 13:07:34 - utils.logger - INFO - Adicionando LoginView
+2025-01-22 13:07:34 - utils.logger - INFO - Rota atual: /login
+2025-01-22 13:08:19 - flet_web.fastapi - INFO - Session disconnected: _I7FhKQscfHEJLz5A_36e75f5a0e2afa3e11e82e410723e199013eb36b
+2025-01-22 13:08:19 - flet_web.fastapi - INFO - Shutting down Flet App Manager
+2025-01-22 13:08:19 - flet - INFO - Flet app has started...
+2025-01-22 13:08:19 - flet_web.fastapi - INFO - Closing Flet web server...

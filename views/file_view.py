@@ -5,6 +5,7 @@ import webbrowser  # Importa o módulo webbrowser para abrir arquivos
 
 logger = logging.getLogger(__name__)
 
+
 class FileView(ft.UserControl):
     def __init__(self, page):
         super().__init__()
@@ -27,12 +28,16 @@ class FileView(ft.UserControl):
 
             for filename in os.listdir(directory):
                 file_path = os.path.join(directory, filename)
-                if os.path.isfile(file_path) and (filename.endswith('.pdf') or filename.endswith('.xlsx')):
+                if os.path.isfile(file_path) and (
+                    filename.endswith(".pdf") or filename.endswith(".xlsx")
+                ):
                     # Adiciona o arquivo ao ListView com a opção de abrir
                     self.list_view.controls.append(
                         ft.ListTile(
                             title=ft.Text(filename),
-                            on_click=lambda e, path=file_path: self.open_file(path)  # Passa o caminho do arquivo
+                            on_click=lambda e, path=file_path: self.open_file(
+                                path
+                            ),  # Passa o caminho do arquivo
                         )
                     )
 
@@ -46,6 +51,8 @@ class FileView(ft.UserControl):
         """Abre o arquivo selecionado"""
         try:
             logger.info(f"Abrindo arquivo: {file_path}")
+            # Se você estiver usando um serviço de armazenamento em nuvem, gere a URL do arquivo
+            # Exemplo: url = f"https://seuservidor.com/{file_path}"
             webbrowser.open(file_path)  # Abre o arquivo no visualizador padrão
         except Exception as e:
             logger.error(f"Erro ao abrir arquivo: {str(e)}")
@@ -55,8 +62,6 @@ class FileView(ft.UserControl):
         """Exibe uma mensagem de erro"""
         self.page.show_snack_bar(
             ft.SnackBar(
-                content=ft.Text(message),
-                bgcolor=ft.colors.RED_400,
-                duration=3000
+                content=ft.Text(message), bgcolor=ft.colors.RED_400, duration=3000
             )
         )
