@@ -9,8 +9,11 @@ import traceback
 import pandas as pd
 import os
 from datetime import datetime
+from reportlab.lib.pagesizes import letter
+from reportlab.pdfgen import canvas
 
 logger = logging.getLogger(__name__)
+
 
 class MainView(ft.View):
     def __init__(self, page, serve_file_function):
@@ -43,7 +46,7 @@ class MainView(ft.View):
                         icon=ft.icons.ATTACH_MONEY,
                         on_click=lambda e: self.menu_change(2),
                     ),
-                     ft.ElevatedButton(
+                    ft.ElevatedButton(
                         text="Arquivos",
                         icon=ft.icons.FOLDER_OPEN,
                         on_click=lambda e: self.menu_change(3),
@@ -68,7 +71,7 @@ class MainView(ft.View):
                             "Sistema de Empenhos",
                             size=30,
                             weight=ft.FontWeight.BOLD,
-                            color=ft.colors.BLUE
+                            color=ft.colors.BLUE,
                         ),
                         ft.Container(expand=True),  # Espaçador flexível
                         self.menu,
@@ -78,7 +81,7 @@ class MainView(ft.View):
                 padding=ft.padding.only(left=20, right=20, top=10, bottom=10),
                 bgcolor=ft.colors.SURFACE_VARIANT,
             )
-            
+
             # Lista para armazenar os empenhos selecionados
             self.selected_empenhos = []
 
@@ -87,13 +90,13 @@ class MainView(ft.View):
                 "Imprimir Selecionados",
                 icon=ft.icons.PRINT,
                 on_click=self.print_selected,
-                disabled=True
+                disabled=True,
             )
 
             self.export_button = ft.ElevatedButton(
                 "Exportar para Excel",
                 icon=ft.icons.DOWNLOAD,
-                on_click=self.export_to_excel
+                on_click=self.export_to_excel,
             )
 
             # Área de pesquisa
@@ -101,9 +104,9 @@ class MainView(ft.View):
                 label="Pesquisar empenhos",
                 width=400,
                 prefix_icon=ft.icons.SEARCH,
-                on_change=self.filter_empenhos
+                on_change=self.filter_empenhos,
             )
-            
+
             # Tabela de empenhos
             self.data_table = ft.DataTable(
                 columns=[
@@ -119,7 +122,7 @@ class MainView(ft.View):
                     ft.DataColumn(ft.Text("Observação")),
                     ft.DataColumn(ft.Text("Ações")),
                 ],
-                rows=[]
+                rows=[],
             )
 
             # Área de conteúdo - Layout da Home
@@ -131,7 +134,7 @@ class MainView(ft.View):
                             ft.Text(
                                 f"Bem-vindo, {self.current_user['username'] if self.current_user else ''}!",
                                 size=24,
-                                weight=ft.FontWeight.BOLD
+                                weight=ft.FontWeight.BOLD,
                             ),
                             ft.Container(expand=True),  # Espaçador
                             self.print_button,
@@ -139,24 +142,18 @@ class MainView(ft.View):
                         ],
                         alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
                     ),
-
                     # Área de pesquisa
                     ft.Container(
-                        content=self.search_field,
-                        padding=ft.padding.only(bottom=20)
+                        content=self.search_field, padding=ft.padding.only(bottom=20)
                     ),
-
                     # Tabela de empenhos
                     ft.Text(
-                        "Empenhos Cadastrados:",
-                        size=20,
-                        weight=ft.FontWeight.BOLD
+                        "Empenhos Cadastrados:", size=20, weight=ft.FontWeight.BOLD
                     ),
-                    
-                    self.data_table
+                    self.data_table,
                 ],
                 spacing=20,
-                scroll=ft.ScrollMode.AUTO
+                scroll=ft.ScrollMode.AUTO,
             )
 
             # Container principal
@@ -165,15 +162,13 @@ class MainView(ft.View):
                     controls=[
                         header,
                         ft.Container(
-                            content=self.content_area,
-                            expand=True,
-                            padding=20
-                        )
+                            content=self.content_area, expand=True, padding=20
+                        ),
                     ],
                     expand=True,
                     spacing=0,
                 ),
-                expand=True
+                expand=True,
             )
 
             # Define os controles da view
@@ -182,9 +177,9 @@ class MainView(ft.View):
         except Exception as e:
             logger.error(f"Erro ao inicializar interface: {str(e)}")
             self.controls = [ft.Text("Erro ao carregar interface")]
-    
+
     def build(self):
-      return self.main_container
+        return self.main_container
 
     def menu_change(self, index):
         """Gerencia a mudança de menu"""
@@ -193,8 +188,13 @@ class MainView(ft.View):
 
             # Verifica permissão para acessar a tela de usuários
             if index == 1:  # Usuários
-                if not self.current_user or self.current_user.get("user_type") != "admin":
-                    logger.warning("Tentativa de acesso não autorizado à área de usuários")
+                if (
+                    not self.current_user
+                    or self.current_user.get("user_type") != "admin"
+                ):
+                    logger.warning(
+                        "Tentativa de acesso não autorizado à área de usuários"
+                    )
                     self.show_error("Acesso não autorizado")
                     return
                 logger.info("Acesso autorizado para área de usuários")
@@ -209,7 +209,7 @@ class MainView(ft.View):
                             ft.Text(
                                 f"Bem-vindo, {self.current_user['username'] if self.current_user else ''}!",
                                 size=24,
-                                weight=ft.FontWeight.BOLD
+                                weight=ft.FontWeight.BOLD,
                             ),
                             ft.Container(expand=True),  # Espaçador
                             self.print_button,
@@ -217,23 +217,17 @@ class MainView(ft.View):
                         ],
                         alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
                     ),
-
                     # Área de pesquisa
                     ft.Container(
-                        content=self.search_field,
-                        padding=ft.padding.only(bottom=20)
+                        content=self.search_field, padding=ft.padding.only(bottom=20)
                     ),
-
                     # Tabela de empenhos
                     ft.Text(
-                        "Empenhos Cadastrados:",
-                        size=20,
-                        weight=ft.FontWeight.BOLD
+                        "Empenhos Cadastrados:", size=20, weight=ft.FontWeight.BOLD
                     ),
-
-                    self.data_table
+                    self.data_table,
                 ]
-                
+
                 # Carrega e exibe os dados dos empenhos
                 self.load_and_show_empenhos()
 
@@ -244,10 +238,10 @@ class MainView(ft.View):
             elif index == 2:  # Empenhos
                 logger.info("Carregando view Empenhos")
                 self.content_area.controls = [EmpenhoView(self.page)]
-            
-            elif index == 3: # Arquivos
+
+            elif index == 3:  # Arquivos
                 logger.info("Carregando view Arquivos")
-                self.content_area.controls = [FileView(self.page, self.serve_file_function)]
+                self.content_area.controls = [FileView(self.page)]  # Ajuste aqui
 
             # Atualiza a área de conteúdo
             self.content_area.update()
@@ -267,10 +261,11 @@ class MainView(ft.View):
         try:
             with get_db_connection() as conn:
                 cursor = conn.cursor()
-                
+
                 if search_term:
                     # Busca com filtro
-                    cursor.execute("""
+                    cursor.execute(
+                        """
                         SELECT id, data_entrada, numero, empresa, setor, 
                                numero_nota, data_nota, valor, data_saida, 
                                observacao, created_at 
@@ -279,21 +274,25 @@ class MainView(ft.View):
                         OR LOWER(empresa) LIKE ? 
                         OR LOWER(setor) LIKE ?
                         ORDER BY data_entrada DESC
-                    """, (
-                        f"%{search_term.lower()}%",
-                        f"%{search_term.lower()}%",
-                        f"%{search_term.lower()}%"
-                    ))
+                    """,
+                        (
+                            f"%{search_term.lower()}%",
+                            f"%{search_term.lower()}%",
+                            f"%{search_term.lower()}%",
+                        ),
+                    )
                 else:
                     # Busca todos
-                    cursor.execute("""
+                    cursor.execute(
+                        """
                         SELECT id, data_entrada, numero, empresa, setor, 
                                numero_nota, data_nota, valor, data_saida, 
                                observacao, created_at 
                         FROM empenhos 
                         ORDER BY data_entrada DESC
-                    """)
-                    
+                    """
+                    )
+
                 return [
                     {
                         "id": row[0],
@@ -306,8 +305,9 @@ class MainView(ft.View):
                         "valor": row[7],
                         "data_saida": row[8],
                         "observacao": row[9],
-                        "created_at": row[10]
-                    } for row in cursor.fetchall()
+                        "created_at": row[10],
+                    }
+                    for row in cursor.fetchall()
                 ]
         except Exception as e:
             logger.error(f"Erro ao buscar empenhos: {str(e)}")
@@ -321,7 +321,7 @@ class MainView(ft.View):
                 self.selected_empenhos.append(empenho_id)
             else:  # Se foi desselecionado
                 self.selected_empenhos.remove(empenho_id)
-            
+
             # Habilita/desabilita botão de impressão
             self.print_button.disabled = len(self.selected_empenhos) == 0
             self.print_button.update()
@@ -340,29 +340,32 @@ class MainView(ft.View):
             with get_db_connection() as conn:
                 cursor = conn.cursor()
                 # Busca os dados dos empenhos selecionados
-                placeholders = ','.join('?' * len(self.selected_empenhos))
-                cursor.execute(f"""
+                placeholders = ",".join("?" * len(self.selected_empenhos))
+                cursor.execute(
+                    f"""
                     SELECT * FROM empenhos 
                     WHERE id IN ({placeholders})
                     ORDER BY data_entrada DESC
-                """, self.selected_empenhos)
-                
+                """,
+                    self.selected_empenhos,
+                )
+
                 empenhos = cursor.fetchall()
 
             # Gera o PDF
             timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
             filename = f"empenhos_PDF_{timestamp}.pdf"
-            
+
             # Cria o diretório se não existir
-            pdf_dir = "pdf_exports"
+            pdf_dir = "static_exports   "
             if not os.path.exists(pdf_dir):
                 os.makedirs(pdf_dir)
-            
+
             filepath = os.path.join(pdf_dir, filename)
-            
+
             # Gera o PDF usando reportlab
             self.generate_pdf(empenhos, filepath)
-            
+
             self.show_success(f"PDF gerado com sucesso: {filename}")
 
         except Exception as e:
@@ -374,7 +377,13 @@ class MainView(ft.View):
         try:
             from reportlab.lib import colors
             from reportlab.lib.pagesizes import letter, landscape
-            from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Paragraph, Spacer
+            from reportlab.platypus import (
+                SimpleDocTemplate,
+                Table,
+                TableStyle,
+                Paragraph,
+                Spacer,
+            )
             from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
             from reportlab.lib.units import inch
 
@@ -385,17 +394,24 @@ class MainView(ft.View):
 
             # Estilo personalizado para o título
             title_style = ParagraphStyle(
-                'CustomTitle',
-                parent=styles['Title'],
+                "CustomTitle",
+                parent=styles["Title"],
                 fontSize=16,
                 spaceAfter=1,
-                alignment=1  # Centralizado
+                alignment=1,  # Centralizado
             )
 
             # Cabeçalho do documento
-            elements.append(Paragraph("PROTOCOLO PARA ENTREGA DE NOTAS FISCAIS", styles['Title']))
+            elements.append(
+                Paragraph("PROTOCOLO PARA ENTREGA DE NOTAS FISCAIS", styles["Title"])
+            )
             elements.append(Paragraph(" UNIDADE DE CONTROLE INTERNO", title_style))
-            elements.append(Paragraph("Atestamos que as respectivas notas fiscais foram entregues para a Secretaria de Finanças na presente data.", styles['Normal']))
+            elements.append(
+                Paragraph(
+                    "Atestamos que as respectivas notas fiscais foram entregues para a Secretaria de Finanças na presente data.",
+                    styles["Normal"],
+                )
+            )
             elements.append(Spacer(1, 20))
 
             # Cabeçalhos da tabela
@@ -405,59 +421,75 @@ class MainView(ft.View):
                 "Setor",
                 "Nº Nota",
                 "Data Nota",
-                "Valor"
+                "Valor",
             ]
 
             # Dados da tabela
             data = [headers]  # Primeira linha são os cabeçalhos
-            
+
             # Adiciona os dados de cada empenho
             for empenho in empenhos:
-                data.append([
-                    str(empenho["numero"]),
-                    empenho["empresa"],
-                    empenho["setor"],
-                    empenho["numero_nota"],
-                    empenho["data_nota"],
-                    f"R$ {empenho['valor']:.2f}"
-                ])
+                data.append(
+                    [
+                        str(empenho["numero"]),
+                        empenho["empresa"],
+                        empenho["setor"],
+                        empenho["numero_nota"],
+                        empenho["data_nota"],
+                        f"R$ {empenho['valor']:.2f}",
+                    ]
+                )
 
             # Configurações da tabela
-            col_widths = [1.2*inch, 2.5*inch, 1.5*inch, 1.2*inch, 1.2*inch, 1.2*inch]  # Larguras personalizadas
+            col_widths = [
+                1.2 * inch,
+                2.5 * inch,
+                1.5 * inch,
+                1.2 * inch,
+                1.2 * inch,
+                1.2 * inch,
+            ]  # Larguras personalizadas
             table = Table(data, colWidths=col_widths)
-            
+
             # Estilo da tabela
-            table.setStyle(TableStyle([
-                # Estilo do cabeçalho
-                ('BACKGROUND', (0, 0), (-1, 0), colors.blue),
-                ('TEXTCOLOR', (0, 0), (-1, 0), colors.white),
-                ('ALIGN', (0, 0), (-1, 0), 'CENTER'),
-                ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
-                ('FONTSIZE', (0, 0), (-1, 0), 12),
-                ('BOTTOMPADDING', (0, 0), (-1, 0), 12),
-                
-                # Estilo do conteúdo
-                ('BACKGROUND', (0, 1), (-1, -1), colors.white),
-                ('TEXTCOLOR', (0, 1), (-1, -1), colors.black),
-                ('ALIGN', (0, 1), (-1, -1), 'CENTER'),  # Centraliza todo o conteúdo
-                ('FONTNAME', (0, 1), (-1, -1), 'Helvetica'),
-                ('FONTSIZE', (0, 1), (-1, -1), 10),
-                ('GRID', (0, 0), (-1, -1), 1, colors.black),
-                ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
-                
-                # Espaçamento interno das células
-                ('TOPPADDING', (0, 0), (-1, -1), 6),
-                ('BOTTOMPADDING', (0, 0), (-1, -1), 6),
-                ('LEFTPADDING', (0, 0), (-1, -1), 6),
-                ('RIGHTPADDING', (0, 0), (-1, -1), 6),
-            ]))
+            table.setStyle(
+                TableStyle(
+                    [
+                        # Estilo do cabeçalho
+                        ("BACKGROUND", (0, 0), (-1, 0), colors.blue),
+                        ("TEXTCOLOR", (0, 0), (-1, 0), colors.white),
+                        ("ALIGN", (0, 0), (-1, 0), "CENTER"),
+                        ("FONTNAME", (0, 0), (-1, 0), "Helvetica-Bold"),
+                        ("FONTSIZE", (0, 0), (-1, 0), 12),
+                        ("BOTTOMPADDING", (0, 0), (-1, 0), 12),
+                        # Estilo do conteúdo
+                        ("BACKGROUND", (0, 1), (-1, -1), colors.white),
+                        ("TEXTCOLOR", (0, 1), (-1, -1), colors.black),
+                        (
+                            "ALIGN",
+                            (0, 1),
+                            (-1, -1),
+                            "CENTER",
+                        ),  # Centraliza todo o conteúdo
+                        ("FONTNAME", (0, 1), (-1, -1), "Helvetica"),
+                        ("FONTSIZE", (0, 1), (-1, -1), 10),
+                        ("GRID", (0, 0), (-1, -1), 1, colors.black),
+                        ("VALIGN", (0, 0), (-1, -1), "MIDDLE"),
+                        # Espaçamento interno das células
+                        ("TOPPADDING", (0, 0), (-1, -1), 6),
+                        ("BOTTOMPADDING", (0, 0), (-1, -1), 6),
+                        ("LEFTPADDING", (0, 0), (-1, -1), 6),
+                        ("RIGHTPADDING", (0, 0), (-1, -1), 6),
+                    ]
+                )
+            )
 
             elements.append(table)
-            
+
             # Adiciona rodapé com data e hora
             elements.append(Spacer(1, 20))
             footer_text = f"Gerado em: {datetime.now().strftime('%d/%m/%Y %H:%M:%S')}"
-            elements.append(Paragraph(footer_text, styles['Normal']))
+            elements.append(Paragraph(footer_text, styles["Normal"]))
 
             # Gera o PDF
             doc.build(elements)
@@ -479,7 +511,10 @@ class MainView(ft.View):
                 # Adiciona uma linha indicando que não há empenhos
                 self.data_table.rows.append(
                     ft.DataRow(
-                        cells=[ft.DataCell(ft.Text("Nenhum empenho encontrado")) for _ in range(len(self.data_table.columns))] # Cria celulas vazias para todas as colunas
+                        cells=[
+                            ft.DataCell(ft.Text("Nenhum empenho encontrado"))
+                            for _ in range(len(self.data_table.columns))
+                        ]  # Cria celulas vazias para todas as colunas
                     )
                 )
             else:
@@ -497,22 +532,44 @@ class MainView(ft.View):
                                     ft.Checkbox(
                                         value=False,
                                         data=empenho["id"],
-                                        on_change=self.on_select_empenho
+                                        on_change=self.on_select_empenho,
                                     )
                                 ),
-                                ft.DataCell(ft.Text(empenho["data_entrada"] if empenho["data_entrada"] else "")), # Trata como string
+                                ft.DataCell(
+                                    ft.Text(
+                                        empenho["data_entrada"]
+                                        if empenho["data_entrada"]
+                                        else ""
+                                    )
+                                ),  # Trata como string
                                 ft.DataCell(ft.Text(str(empenho["numero"]))),
                                 ft.DataCell(ft.Text(empenho["empresa"])),
                                 ft.DataCell(ft.Text(empenho["setor"])),
                                 ft.DataCell(ft.Text(empenho["numero_nota"])),
-                                ft.DataCell(ft.Text(empenho["data_nota"] if empenho["data_nota"] else "")), # Trata como string
+                                ft.DataCell(
+                                    ft.Text(
+                                        empenho["data_nota"]
+                                        if empenho["data_nota"]
+                                        else ""
+                                    )
+                                ),  # Trata como string
                                 ft.DataCell(ft.Text(f"R$ {empenho['valor']:.2f}")),
-                                ft.DataCell(ft.Text(empenho["data_saida"] if empenho["data_saida"] else "")), # Trata como string
+                                ft.DataCell(
+                                    ft.Text(
+                                        empenho["data_saida"]
+                                        if empenho["data_saida"]
+                                        else ""
+                                    )
+                                ),  # Trata como string
                                 ft.DataCell(
                                     ft.Container(
                                         content=ft.Text(
                                             observacao,
-                                            tooltip=empenho["observacao"] if empenho["observacao"] else ""
+                                            tooltip=(
+                                                empenho["observacao"]
+                                                if empenho["observacao"]
+                                                else ""
+                                            ),
                                         )
                                     )
                                 ),
@@ -524,14 +581,14 @@ class MainView(ft.View):
                                                 icon_color=ft.colors.BLUE,
                                                 tooltip="Editar",
                                                 data=empenho["id"],
-                                                on_click=self.edit_empenho
+                                                on_click=self.edit_empenho,
                                             ),
                                             ft.IconButton(
                                                 icon=ft.icons.DELETE,
                                                 icon_color=ft.colors.RED,
                                                 tooltip="Excluir",
                                                 data=empenho["id"],
-                                                on_click=self.delete_empenho
+                                                on_click=self.delete_empenho,
                                             ),
                                         ]
                                     )
@@ -562,13 +619,15 @@ class MainView(ft.View):
         """Exclui um empenho"""
         try:
             empenho_id = e.control.data
-            
+
             def confirm_delete(e):
                 if e.control.data:
                     try:
                         with get_db_connection() as conn:
                             cursor = conn.cursor()
-                            cursor.execute("DELETE FROM empenhos WHERE id = ?", (empenho_id,))
+                            cursor.execute(
+                                "DELETE FROM empenhos WHERE id = ?", (empenho_id,)
+                            )
                         self.show_success("Empenho excluído com sucesso!")
                         self.load_empenhos()
                     except Exception as ex:
@@ -586,7 +645,7 @@ class MainView(ft.View):
                     ft.TextButton("Excluir", on_click=confirm_delete, data=True),
                 ],
             )
-            
+
             self.page.dialog = dlg
             dlg.open = True
             self.page.update()
@@ -599,25 +658,28 @@ class MainView(ft.View):
         """Exporta os empenhos para um arquivo Excel"""
         try:
             with get_db_connection() as conn:
-                df = pd.read_sql_query("""
+                df = pd.read_sql_query(
+                    """
                     SELECT 
                         data_entrada, numero, empresa, setor,
                         numero_nota, data_nota, valor, data_saida,
                         observacao, created_at
                     FROM empenhos 
                     ORDER BY data_entrada DESC
-                """, conn)
+                """,
+                    conn,
+                )
 
             timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
             filename = f"empenhos_{timestamp}.xlsx"
-            
-            export_dir = "exports"
+
+            export_dir = "static_exports"
             if not os.path.exists(export_dir):
                 os.makedirs(export_dir)
-            
+
             filepath = os.path.join(export_dir, filename)
             df.to_excel(filepath, index=False, sheet_name="Empenhos")
-            
+
             self.show_success(f"Dados exportados com sucesso para {filename}")
 
         except Exception as e:
@@ -628,9 +690,7 @@ class MainView(ft.View):
         """Exibe uma mensagem de erro"""
         self.page.show_snack_bar(
             ft.SnackBar(
-                content=ft.Text(message),
-                bgcolor=ft.colors.RED_400,
-                duration=3000
+                content=ft.Text(message), bgcolor=ft.colors.RED_400, duration=3000
             )
         )
 
@@ -638,9 +698,7 @@ class MainView(ft.View):
         """Exibe uma mensagem de sucesso"""
         self.page.show_snack_bar(
             ft.SnackBar(
-                content=ft.Text(message),
-                bgcolor=ft.colors.GREEN_400,
-                duration=3000
+                content=ft.Text(message), bgcolor=ft.colors.GREEN_400, duration=3000
             )
         )
 
@@ -654,7 +712,7 @@ class MainView(ft.View):
                     ft.Text(
                         f"Bem-vindo, {self.current_user['username'] if self.current_user else ''}!",
                         size=24,
-                        weight=ft.FontWeight.BOLD
+                        weight=ft.FontWeight.BOLD,
                     ),
                     ft.Container(expand=True),  # Espaçador
                     self.print_button,
@@ -662,21 +720,11 @@ class MainView(ft.View):
                 ],
                 alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
             ),
-
             # Área de pesquisa
-            ft.Container(
-                content=self.search_field,
-                padding=ft.padding.only(bottom=20)
-            ),
-
+            ft.Container(content=self.search_field, padding=ft.padding.only(bottom=20)),
             # Tabela de empenhos
-            ft.Text(
-                "Empenhos Cadastrados:",
-                size=20,
-                weight=ft.FontWeight.BOLD
-            ),
-
-            self.data_table
+            ft.Text("Empenhos Cadastrados:", size=20, weight=ft.FontWeight.BOLD),
+            self.data_table,
         ]
         self.load_and_show_empenhos()
 
@@ -692,7 +740,7 @@ class MainView(ft.View):
             # Limpa a pilha de visualizações
             self.page.views.clear()
             logger.info("Pilha de visualizações limpa.")
-            
+
             # Forçar atualização da página
             logger.info("Página atualizada (antes do redirecionamento).")
 
@@ -703,3 +751,35 @@ class MainView(ft.View):
         except Exception as e:
             logger.error(f"Erro ao fazer logout: {str(e)}")
             self.show_error("Erro ao fazer logout")
+
+    def create_pdf(self, filename):
+        """Cria um arquivo PDF e salva na pasta especificada"""
+        try:
+            pdf_path = os.path.join("static_exports", filename)
+            c = canvas.Canvas(pdf_path, pagesize=letter)
+            c.drawString(100, 750, "Este é um exemplo de PDF gerado.")
+            c.save()
+            logger.info(f"PDF criado: {pdf_path}")
+            self.show_success(f"PDF criado com sucesso: {filename}")
+        except Exception as e:
+            logger.error(f"Erro ao criar PDF: {str(e)}")
+            self.show_error("Erro ao criar PDF.")
+
+    def create_excel(self, filename):
+        """Cria um arquivo Excel e salva na pasta especificada"""
+        try:
+            excel_path = os.path.join("static_exports", filename)
+            data = {"Coluna 1": ["Dado 1", "Dado 2"], "Coluna 2": [10, 20]}
+            df = pd.DataFrame(data)
+            df.to_excel(excel_path, index=False)
+            logger.info(f"Excel criado: {excel_path}")
+            self.show_success(f"Excel criado com sucesso: {filename}")
+        except Exception as e:
+            logger.error(f"Erro ao criar Excel: {str(e)}")
+            self.show_error("Erro ao criar Excel.")
+
+    def save_files(self):
+        """Chama as funções para criar e salvar arquivos PDF e Excel"""
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        self.create_pdf(f"exemplo_{timestamp}.pdf")
+        self.create_excel(f"exemplo_{timestamp}.xlsx")
